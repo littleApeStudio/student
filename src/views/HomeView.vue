@@ -1,7 +1,6 @@
 <template>
-  <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+  <div class="login_box">
+    <div class="login"></div>
   </div>
 </template>
 
@@ -19,3 +18,21 @@ export default {
   }
 }
 </script>
+<style scoped>
+.login_box {
+  width: 100%;
+  height: 100%;
+}
+
+.login {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%,-50%);
+  width: 450px;
+  height: 600px;
+  background: #ffffff;
+  border-radius: 5px;
+  border: 1px solid #eeeeee;
+}
+</style>
