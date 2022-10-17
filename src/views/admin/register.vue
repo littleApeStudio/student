@@ -1,6 +1,7 @@
 <template>
   <div class="login_box">
     <div class="login">
+      <div class="logo"><img src="@/assets/logo.png" /></div>
       <el-form
         label-position="right"
         :model="userData"
@@ -33,7 +34,10 @@
           ></el-input>
         </el-form-item>
         <el-form-item label-width="70px">
-          <el-button style="width:100%" type="primary" @click="submitForm('userData')"
+          <el-button
+            style="width: 100%"
+            type="primary"
+            @click="submitForm('userData')"
             >注册</el-button
           >
         </el-form-item>
@@ -119,6 +123,19 @@ export default {
   border-radius: 5px;
   border: 1px solid #eeeeee;
   box-shadow: 0 0 10px #dddddd;
+}
+
+.login .logo {
+    padding-bottom: 20px;
+    margin: auto;
+    margin-top: -70px;
+    width: 100px;
+    height: 100px;
+}
+
+.login .logo > img {
+    width: 100%;
+    height: 100%;
 }
 </style>
 <style>
