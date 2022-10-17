@@ -1,6 +1,6 @@
 import axios from 'axios'
-import {toptip} from "@/utils/componentsJS/tip";
-const ConfigBaseURL = 'http://localhost:82/' //默认路径，这里也可以使用env来判断环境
+import {message} from "element-ui";
+const ConfigBaseURL = 'http://localhost/' //默认路径，这里也可以使用env来判断环境
 //使用create方法创建axios实例
 export const request = axios.create({
     timeout: 7000, // 请求超时时间
@@ -18,8 +18,8 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(response => {
     return response.data
 }, error => {
-    toptip({
-        title: '后端接口异常或网络连接错误',
+    message({
+        message: '后端接口异常或网络连接错误',
         type: 'error'
     })
     return Promise.reject(error)

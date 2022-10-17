@@ -1,5 +1,8 @@
 const { defineConfig } = require('@vue/cli-service')
 module.exports = defineConfig({
   transpileDependencies: true,
-  lintOnSave: false  //关掉语法检测
+  //关掉语法检测
+  lintOnSave: false,
+  assetsDir: 'static',
+  productionSourceMap: false
 })
