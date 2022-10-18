@@ -13,11 +13,11 @@
             学生管理系统
           </div>
         </div>
-        <el-menu-item index="index">
+        <el-menu-item index="首页">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
-        <el-submenu index="1">
+        <el-submenu index="用户管理">
           <template slot="title">
             <i class="el-icon-user-solid"></i>
             <span slot="title">用户管理</span>
@@ -27,7 +27,7 @@
             <el-menu-item index="student">学生管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="2">
+        <el-submenu index="学院管理">
           <template slot="title">
             <i class="el-icon-s-order"></i>
             <span slot="title">学院管理</span>
@@ -39,7 +39,7 @@
             <el-menu-item index="shiti">试题管理</el-menu-item>
           </el-menu-item-group>
         </el-submenu>
-        <el-submenu index="3">
+        <el-submenu index="其他管理">
           <template slot="title">
             <i class="el-icon-menu"></i>
             <span slot="title">其他管理</span>
@@ -117,7 +117,7 @@ export default {
     },
     // 菜单点击
     selected(key, keyPath) {
-      console.log(key);
+      console.log(key,keyPath);
     },
   },
 };
