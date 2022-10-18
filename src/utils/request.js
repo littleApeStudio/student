@@ -1,5 +1,5 @@
 import axios from 'axios'
-import {message} from "element-ui";
+import {Message} from "element-ui";
 const ConfigBaseURL = 'http://localhost/' //默认路径，这里也可以使用env来判断环境
 //使用create方法创建axios实例
 export const request = axios.create({
@@ -18,7 +18,7 @@ request.interceptors.request.use(config => {
 request.interceptors.response.use(response => {
     return response.data
 }, error => {
-    message({
+    Message({
         message: '后端接口异常或网络连接错误',
         type: 'error'
     })
