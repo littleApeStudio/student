@@ -16,3 +16,11 @@ export function login(data) {
     data: data
   })
 }
+
+// 添加教师
+export function addTeacher(data) {
+  return request({
+    url: '/stuManage/api/admin/addTeacher.php',
+    data: data
+  })
+}
