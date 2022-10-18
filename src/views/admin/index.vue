@@ -3,12 +3,17 @@
     <div class="left_menu">
       <el-menu
         class="el-menu-vertical-demo"
-        default-active="0"
-        @open="handleOpen"
-        @close="handleClose"
+        default-active="index"
         :collapse="isCollapse"
+        @select="selected"
       >
-        <el-menu-item index="0">
+        <div class="logo">
+          <div><img src="@/assets/logo.png" /></div>
+          <div :style="isCollapse == false ? 'display:block' : 'display:none'">
+            学生管理系统
+          </div>
+        </div>
+        <el-menu-item index="index">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -62,20 +67,19 @@
 export default {
   data() {
     return {
-      isCollapse: true,
+      isCollapse: false,
     };
   },
   methods: {
+    // 菜单收缩
     menu() {
       this.isCollapse == true
         ? (this.isCollapse = false)
         : (this.isCollapse = true);
     },
-    handleOpen(key, keyPath) {
-      console.log(key, keyPath);
-    },
-    handleClose(key, keyPath) {
-      console.log(key, keyPath);
+    // 菜单点击
+    selected(key, keyPath) {
+      console.log(key);
     },
   },
 };
@@ -105,6 +109,29 @@ export default {
   width: 200px;
   height: 100%;
 }
+.admin .left_menu .logo {
+  width: auto;
+  min-width: 64px;
+  height: 56px;
+  display: flex;
+  justify-content: center;
+}
+.admin .left_menu .logo > div:nth-child(1) {
+  padding: 0 4px;
+  width: 56px;
+  height: 56px;
+}
+.admin .left_menu .logo > div:nth-child(1) > img {
+  margin: 10px;
+  width: 36px;
+  height: 36px;
+}
+.admin .left_menu .logo > div:nth-child(2) {
+  padding-right: 10px;
+  width: auto;
+  height: 56px;
+  line-height: 56px;
+}
 .admin .right {
   flex: auto;
   height: 100%;
@@ -113,6 +140,7 @@ export default {
   width: 100%;
   height: 56px;
   background: #ffffff;
+  display: flex;
 }
 .admin .right .nav .menuopen {
   width: 56px;
@@ -121,6 +149,9 @@ export default {
   text-align: center;
   color: #909399;
   font-size: 20px;
+}
+.admin .right .nav .menuopen:hover {
+  color: #409eff;
 }
 </style>
 <style>
