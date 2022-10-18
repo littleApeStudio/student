@@ -1,17 +1,17 @@
 <template>
-  <div>
-    <div>
-      <el-radio-group v-model="isCollapse" style="margin-bottom: 20px">
-        <el-radio-button :label="false">展开</el-radio-button>
-        <el-radio-button :label="true">收起</el-radio-button>
-      </el-radio-group>
+  <div class="admin">
+    <div class="left_menu">
       <el-menu
-        default-active="1-4-1"
         class="el-menu-vertical-demo"
+        default-active="0"
         @open="handleOpen"
         @close="handleClose"
         :collapse="isCollapse"
       >
+        <el-menu-item index="0">
+          <i class="el-icon-s-home"></i>
+          <span slot="title">首页</span>
+        </el-menu-item>
         <el-submenu index="1">
           <template slot="title">
             <i class="el-icon-user-solid"></i>
@@ -46,6 +46,16 @@
         </el-submenu>
       </el-menu>
     </div>
+    <div class="right">
+      <div class="nav">
+        <div class="menuopen">
+          <i
+            @click="menu"
+            :class="isCollapse == false ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
+          ></i>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 <script>
@@ -56,6 +66,11 @@ export default {
     };
   },
   methods: {
+    menu() {
+      this.isCollapse == true
+        ? (this.isCollapse = false)
+        : (this.isCollapse = true);
+    },
     handleOpen(key, keyPath) {
       console.log(key, keyPath);
     },
@@ -66,9 +81,46 @@ export default {
 };
 </script>
 <style scoped>
-.el-menu-vertical-demo:not(.el-menu--collapse) {
+.admin {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+}
+.admin .left_menu {
+  width: auto;
+  height: 100%;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ffffff;
+  border-right: solid 1px #e6e6e6;
+}
+.admin .left_menu .el-menu-vertical-demo {
+  text-align: left;
+  border: none;
+}
+.admin .left_menu .el-menu-vertical-demo:not(.el-menu--collapse) {
   width: 200px;
-  min-height: 100%;
+  height: 100%;
+}
+.admin .right {
+  flex: auto;
+  height: 100%;
+}
+.admin .right .nav {
+  width: 100%;
+  height: 56px;
+  background: #ffffff;
+}
+.admin .right .nav .menuopen {
+  width: 56px;
+  height: 56px;
+  line-height: 56px;
+  text-align: center;
+  color: #909399;
+  font-size: 20px;
 }
 </style>
 <style>
