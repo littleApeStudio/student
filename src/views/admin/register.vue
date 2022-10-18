@@ -102,11 +102,6 @@ export default {
                 type: "error"
               })
             }
-          }).catch((err) => {
-            this.$message({
-              message: err,
-              type: "error"
-            })
           })
         } else {
           this.$message({
