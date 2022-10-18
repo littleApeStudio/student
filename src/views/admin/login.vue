@@ -49,6 +49,7 @@ export default {
   },
   methods: {
     submitForm(formName) {
+      this.$loading('登陆中...')
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(this.userData).then((res) => {
