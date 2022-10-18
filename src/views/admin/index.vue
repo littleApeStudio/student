@@ -13,7 +13,7 @@
             学生管理系统
           </div>
         </div>
-        <el-menu-item index="首页">
+        <el-menu-item index="index">
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -118,6 +118,7 @@ export default {
     // 菜单点击
     selected(key, keyPath) {
       console.log(key,keyPath);
+      this.nowPage = key
     },
   },
 };
