@@ -5,7 +5,7 @@
         <el-button type="primary" @click="addTeacher">添加教师</el-button>
       </div>
       <div>
-        <el-input class="search" v-model="search" placeholder="输入姓名搜索" />
+        <el-input class="search" v-model="search" placeholder="输入教师姓名搜索" />
       </div>
     </div>
     <div class="my_table">
@@ -33,9 +33,6 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" @click="handleEdit(scope.$index, scope.row)"
-              >编辑</el-button
-            >
             <el-button
               size="mini"
               type="danger"
@@ -136,6 +133,132 @@ export default {
           collage: "信息与工程学院",
           zy: "计算机科学与技术",
         },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "张三",
+          username: "123123",
+          password: "123456",
+          collage: "背景",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
+        {
+          name: "王小虎",
+          username: "123123",
+          password: "123456",
+          collage: "信息与工程学院",
+          zy: "计算机科学与技术",
+        },
       ],
       search: "",
       // 添加弹窗显隐
@@ -163,19 +286,17 @@ export default {
     cancle() {
       this.dialogFormVisible = false;
     },
-    // 编辑
-    handleEdit(index, row) {
-      console.log(index, row);
-    },
     // 删除
     handleDelete(index, row) {
       console.log(index, row);
-    },
+    }
   },
 };
 </script>
 <style scoped>
 .header {
+  position: fixed;
+  z-index: 10;
   width: 100%;
   height: 56px;
   background: #fff;
@@ -200,13 +321,12 @@ export default {
 }
 .my_table {
   position: relative;
+  top: 56px;
   width: 100%;
 }
 
 .my_table .el-table {
   position: absolute;
   width: 100%;
-  min-width: 875px;
-  overflow: auto;
 }
 </style>

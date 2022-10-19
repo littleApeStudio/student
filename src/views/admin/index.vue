@@ -3,7 +3,7 @@
     <div class="left_menu">
       <el-menu
         class="el-menu-vertical-demo"
-        default-active="index"
+        default-active='{"path":"index","name":"首页"}'
         :collapse="isCollapse"
         @select="selected"
       >
@@ -13,7 +13,7 @@
             学生管理系统
           </div>
         </div>
-        <el-menu-item index="index">
+        <el-menu-item index='{"path":"index","name":"首页"}'>
           <i class="el-icon-s-home"></i>
           <span slot="title">首页</span>
         </el-menu-item>
@@ -23,8 +23,12 @@
             <span slot="title">用户管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="teacher">教师管理</el-menu-item>
-            <el-menu-item index="student">学生管理</el-menu-item>
+            <el-menu-item index='{"path":"teacher","name":"教师管理"}'
+              >教师管理</el-menu-item
+            >
+            <el-menu-item index='{"path":"student","name":"学生管理"}'
+              >学生管理</el-menu-item
+            >
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="学院管理">
@@ -33,10 +37,18 @@
             <span slot="title">学院管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="kemu">科目管理</el-menu-item>
-            <el-menu-item index="classs">班级管理</el-menu-item>
-            <el-menu-item index="course">课程管理</el-menu-item>
-            <el-menu-item index="shiti">试题管理</el-menu-item>
+            <el-menu-item index='{"path":"kemu","name":"科目管理"}'
+              >科目管理</el-menu-item
+            >
+            <el-menu-item index='{"path":"classs","name":"班级管理"}'
+              >班级管理</el-menu-item
+            >
+            <el-menu-item index='{"path":"course","name":"课程管理"}'
+              >课程管理</el-menu-item
+            >
+            <el-menu-item index='{"path":"shiti","name":"试题管理"}'
+              >试题管理</el-menu-item
+            >
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="其他管理">
@@ -45,8 +57,12 @@
             <span slot="title">其他管理</span>
           </template>
           <el-menu-item-group>
-            <el-menu-item index="notice">编写通知</el-menu-item>
-            <el-menu-item index="grade">成绩统计</el-menu-item>
+            <el-menu-item index='{"path":"notice","name":"编写通知"}'
+              >编写通知</el-menu-item
+            >
+            <el-menu-item index='{"path":"grade","name":"成绩统计"}'
+              >成绩统计</el-menu-item
+            >
           </el-menu-item-group>
         </el-submenu>
       </el-menu>
@@ -58,6 +74,11 @@
             @click="menu"
             :class="isCollapse == false ? 'el-icon-s-fold' : 'el-icon-s-unfold'"
           ></i>
+        </div>
+        <div class="tip">
+          <el-breadcrumb class="tip" separator-class="el-icon-arrow-right">
+            <el-breadcrumb-item v-for="(item,index) in menuTip" :key="index">{{item}}</el-breadcrumb-item>
+          </el-breadcrumb>
         </div>
       </div>
       <div class="content">
@@ -106,6 +127,8 @@ export default {
         "notice",
         "grade",
       ],
+      // 导航进度
+      menuTip:['首页']
     };
   },
   methods: {
@@ -117,8 +140,15 @@ export default {
     },
     // 菜单点击
     selected(key, keyPath) {
-      console.log(key,keyPath);
-      this.nowPage = key
+      var menuName1 = keyPath[0];
+      var menuName2 = JSON.parse(key).name;
+      var path = JSON.parse(key).path;
+      this.nowPage = path;
+      if (menuName2 == '首页'){
+        this.menuTip=[menuName2]
+      } else{
+        this.menuTip=[menuName1,menuName2]
+      }
     },
   },
 };
@@ -191,6 +221,14 @@ export default {
 }
 .admin .right .nav .menuopen:hover {
   color: #409eff;
+}
+.admin .right .nav .tip .tip {
+  width: 300px;
+  height: 56px;
+  line-height: 56px;
+  color: #909399;
+  font-size: 14px;
+  cursor: pointer;
 }
 .admin .right .content {
   width: 100%;
