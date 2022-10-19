@@ -24,3 +24,44 @@ export function addTeacher(data) {
     data: data
   })
 }
+
+// 查找教师
+export function getTeacher(data) {
+  return request({
+    url: '/stuManage/api/admin/getTeacher.php',
+    data: data
+  })
+}
+
+// 删除教师
+export function delateTeacher(data) {
+  return request({
+    url: '/stuManage/api/admin/delateTeacher.php',
+    data: data
+  })
+}
+
+// 添加学生
+export function addStudent(data) {
+  return request({
+    url: '/stuManage/api/admin/addStudent.php',
+    data: data
+  })
+}
+
+// 查找学生
+export function getStudent(data) {
+  return request({
+    url: '/stuManage/api/admin/getStudent.php',
+    data: data
+  })
+}
+
+// 删除学生
+export function delateStudent(data) {
+  return request({
+    url: '/stuManage/api/admin/delateStudent.php',
+    data: data
+  })
+}
+

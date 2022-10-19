@@ -49,7 +49,6 @@ export default {
   },
   methods: {
     submitForm(formName) {
-      this.$loading('登陆中...')
       this.$refs[formName].validate((valid) => {
         if (valid) {
           login(this.userData).then((res) => {
@@ -62,7 +61,7 @@ export default {
                 username: '',
                 pass: '',
               }
-              sessionStorage.setItem('token',res.data.a_id)
+              sessionStorage.setItem('token', res.data.a_id)
               this.$router.push('/admin')
             } else {
               this.$message({
