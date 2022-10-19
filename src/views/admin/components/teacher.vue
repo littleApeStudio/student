@@ -5,12 +5,22 @@
         <el-button type="primary" @click="addTeacher">添加教师</el-button>
       </div>
       <div>
-        <el-input class="search" v-model="search" placeholder="输入教师姓名搜索" />
+        <el-input
+          class="search"
+          v-model="search"
+          placeholder="输入教师姓名搜索"
+        />
       </div>
     </div>
     <div class="my_table">
+      <!-- 空表 -->
+      <el-empty
+        v-if="tableData.length == 0"
+        description="暂没找到教师信息"
+      ></el-empty>
       <!-- 表格 -->
       <el-table
+        v-else
         class="el-table"
         :data="
           tableData.filter(
@@ -289,7 +299,7 @@ export default {
     // 删除
     handleDelete(index, row) {
       console.log(index, row);
-    }
+    },
   },
 };
 </script>
