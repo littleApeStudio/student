@@ -180,6 +180,7 @@ export default {
   height: 56px;
   background: #ffffff;
   display: flex;
+  border-bottom: solid 1px #e6e6e6;
 }
 .admin .right .nav .menuopen {
   width: 56px;
