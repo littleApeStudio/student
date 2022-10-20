@@ -28,10 +28,6 @@
         </el-table-column>
         <el-table-column align="center" label="班级" prop="class">
         </el-table-column>
-        <el-table-column align="center" label="学院" prop="collage">
-        </el-table-column>
-        <el-table-column align="center" label="专业" prop="zy">
-        </el-table-column>
         <el-table-column align="center" label="学号" prop="schoolID">
         </el-table-column>
         <el-table-column align="center" label="密码" prop="password">
@@ -62,7 +58,8 @@
         </el-form-item>
         <el-form-item label="班级" :label-width="formLabelWidth">
           <el-select v-model="form.class" placeholder="选择所在的班级">
-            <el-option label="30" value="30"></el-option>
+            <el-option v-if="classs.length == 0" label="暂无班级，请前往学院管理添加" value=""></el-option>
+            <el-option v-else v-for="(item,index) in classs" :key="index" :label="item" :value="item"></el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="学号" :label-width="formLabelWidth">
@@ -86,6 +83,7 @@ import { addStudent, getStudent, delateStudent } from "@/api/admin"
 export default {
   data() {
     return {
+      classs: [],
       // 表格数据
       tableData: [],
       search: "",
@@ -163,28 +161,39 @@ export default {
     },
     // 删除
     handleDelete(index, row) {
-      this.$showLoading("删除中...");
-      var data = {
-        s_id: row.s_id
-      }
-      delateStudent(data).then((res) => {
-        this.$hideLoading()
-        if (res.code == 200) {
-          this.$message({
-            message: "删除成功",
-            type: "success"
-          })
-          this.getStudent()
-          this.dialogFormVisible = false;
-        } else {
-          this.$message({
-            message: res.msg,
-            type: "error"
-          })
+      this.$confirm('此操作将永久删除该学生, 是否继续?', '提示', {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning'
+      }).then(() => {
+        this.$showLoading("删除中...");
+        var data = {
+          s_id: row.s_id
         }
-      }).catch((err) => {
-        this.$hideLoading()
-      })
+        delateStudent(data).then((res) => {
+          this.$hideLoading()
+          if (res.code == 200) {
+            this.$message({
+              message: "删除成功",
+              type: "success"
+            })
+            this.getStudent()
+            this.dialogFormVisible = false;
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error"
+            })
+          }
+        }).catch((err) => {
+          this.$hideLoading()
+        })
+      }).catch(() => {
+        this.$message({
+          type: 'info',
+          message: '已取消删除'
+        });
+      });
     },
     // 查找学生信息
     getStudent() {
