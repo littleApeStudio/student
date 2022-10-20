@@ -2,7 +2,7 @@
   <div>
     <div class="header">
       <div>
-        <el-button type="primary" @click="addTeacher">添加学生</el-button>
+        <el-button type="primary" @click="addStudent">添加学生</el-button>
       </div>
       <div>
         <el-input class="search" v-model="search" placeholder="输入学生姓名搜索" />
@@ -110,7 +110,7 @@ export default {
   },
   methods: {
     // 添加
-    addTeacher() {
+    addStudent() {
       this.dialogFormVisible = true;
     },
     // 确定
@@ -122,6 +122,7 @@ export default {
           type: "warning"
         })
       } else {
+        this.$showLoading("添加中...");
         var data = {
           name: form.name,
           age: form.age,
@@ -134,6 +135,7 @@ export default {
           a_id: sessionStorage.getItem('token'),
         }
         addStudent(data).then((res) => {
+          this.$hideLoading()
           if (res.code == 200) {
             this.$message({
               message: "添加成功",
@@ -155,7 +157,7 @@ export default {
             })
           }
         }).catch((err) => {
-          console.log(err)
+          this.$hideLoading()
         })
       }
     },
@@ -165,10 +167,12 @@ export default {
     },
     // 删除
     handleDelete(index, row) {
+      this.$showLoading("删除中...");
       var data = {
         s_id: row.s_id
       }
       delateStudent(data).then((res) => {
+        this.$hideLoading()
         if (res.code == 200) {
           this.$message({
             message: "删除成功",
@@ -182,6 +186,8 @@ export default {
             type: "error"
           })
         }
+      }).catch((err) => {
+        this.$hideLoading()
       })
     },
     // 查找学生信息

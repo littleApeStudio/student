@@ -2,16 +2,36 @@
   <div class="login_box">
     <div class="login">
       <div class="logo"><img src="@/assets/logo.png" /></div>
-      <el-form label-position="right" :model="userData" status-icon :rules="rules" ref="userData" label-width="100px"
-        class="demo-ruleForm">
+      <el-form
+        label-position="right"
+        :model="userData"
+        status-icon
+        :rules="rules"
+        ref="userData"
+        label-width="100px"
+        class="demo-ruleForm"
+      >
         <el-form-item label-width="70px" label="用户名" prop="username">
-          <el-input v-model.number="userData.username" placeholder="请输入用户名"></el-input>
+          <el-input
+            v-model.number="userData.username"
+            placeholder="请输入用户名"
+          ></el-input>
         </el-form-item>
         <el-form-item label-width="70px" label="密码" prop="pass">
-          <el-input type="password" v-model="userData.pass" autocomplete="off" placeholder="请输入密码"></el-input>
+          <el-input
+            type="password"
+            v-model="userData.pass"
+            autocomplete="off"
+            placeholder="请输入密码"
+          ></el-input>
         </el-form-item>
         <el-form-item label-width="70px">
-          <el-button style="width: 100%" type="primary" @click="submitForm('userData')">登录</el-button>
+          <el-button
+            style="width: 100%"
+            type="primary"
+            @click="submitForm('userData')"
+            >登录</el-button
+          >
         </el-form-item>
       </el-form>
     </div>
@@ -19,7 +39,7 @@
 </template>
   
 <script>
-import { login } from "@/api/admin"
+import { login } from "@/api/admin";
 export default {
   data() {
     var checkusername = (rule, value, callback) => {
@@ -51,33 +71,39 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          login(this.userData).then((res) => {
-            if (res.code == 200) {
-              this.$message({
-                message: "登录成功",
-                type: "success"
-              })
-              this.userData = {
-                username: '',
-                pass: '',
+          this.$showLoading("登陆中...");
+          login(this.userData)
+            .then((res) => {
+              this.$hideLoading();
+              if (res.code == 200) {
+                this.$message({
+                  message: "登录成功",
+                  type: "success",
+                });
+                this.userData = {
+                  username: "",
+                  pass: "",
+                };
+                sessionStorage.setItem("token", res.data.a_id);
+                this.$router.push("/admin");
+              } else {
+                this.$message({
+                  message: res.msg,
+                  type: "error",
+                });
               }
-              sessionStorage.setItem('token', res.data.a_id)
-              this.$router.push('/admin')
-            } else {
-              this.$message({
-                message: res.msg,
-                type: "error"
-              })
-            }
-          })
+            })
+            .catch((err) => {
+              this.$hideLoading();
+            });
         } else {
           this.$message({
             message: "请先填写数据",
-            type: "warning"
-          })
+            type: "warning",
+          });
         }
       });
-    }
+    },
   },
 };
 </script>
@@ -109,7 +135,7 @@ export default {
   height: 100px;
 }
 
-.login .logo>img {
+.login .logo > img {
   width: 100%;
   height: 100%;
 }

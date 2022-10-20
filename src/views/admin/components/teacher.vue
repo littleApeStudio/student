@@ -104,6 +104,7 @@ export default {
           type: "warning"
         })
       } else {
+        this.$showLoading("添加中...");
         var data = {
           name: form.name,
           username: form.username,
@@ -113,6 +114,7 @@ export default {
           a_id: sessionStorage.getItem('token'),
         }
         addTeacher(data).then((res) => {
+          this.$hideLoading();
           if (res.code == 200) {
             this.$message({
               message: "添加成功",
@@ -134,7 +136,7 @@ export default {
             })
           }
         }).catch((err) => {
-          console.log(err)
+          this.$hideLoading()
         })
       }
     },
@@ -144,10 +146,12 @@ export default {
     },
     // 删除
     handleDelete(index, row) {
+      this.$showLoading("删除中...");
       var data = {
         t_id: row.t_id
       }
       delateTeacher(data).then((res) => {
+        this.$hideLoading()
         if (res.code == 200) {
           this.$message({
             message: "删除成功",
@@ -161,6 +165,8 @@ export default {
             type: "error"
           })
         }
+      }).catch((res) => {
+        this.$hideLoading()
       })
     },
     // 查找教师信息
@@ -169,6 +175,7 @@ export default {
         session: 'admin'
       }
       getTeacher(data).then((res) => {
+        this.$hideLoading()
         this.tableData = res.data
       })
     }

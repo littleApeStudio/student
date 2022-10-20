@@ -83,7 +83,9 @@ export default {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
+          this.$showLoading("注册中...")
           register(this.userData).then((res) => {
+            this.$hideLoading()
             if (res.code == 200) {
               this.$message({
                 message: "注册成功",
@@ -102,6 +104,8 @@ export default {
                 type: "error"
               })
             }
+          }).catch((err) => {
+            this.$hideLoading()
           })
         } else {
           this.$message({
