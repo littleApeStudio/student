@@ -5,19 +5,30 @@
         <el-button type="primary" @click="addTeacher">添加教师</el-button>
       </div>
       <div>
-        <el-input class="search" v-model="search" placeholder="输入教师姓名搜索" />
+        <el-input
+          class="search"
+          v-model="search"
+          placeholder="输入教师姓名搜索"
+        />
       </div>
     </div>
     <div class="my_table">
       <!-- 空表 -->
-      <el-empty v-if="tableData.length == 0" description="暂无教师信息"></el-empty>
+      <el-empty
+        v-if="tableData.length == 0"
+        description="暂无教师信息"
+      ></el-empty>
       <!-- 表格 -->
-      <el-table v-else class="el-table" :data="
-        tableData.filter(
-          (data) =>
-            !search || data.name.toLowerCase().includes(search.toLowerCase())
-        )
-      ">
+      <el-table
+        v-else
+        class="el-table"
+        :data="
+          tableData.filter(
+            (data) =>
+              !search || data.name.toLowerCase().includes(search.toLowerCase())
+          )
+        "
+      >
         <el-table-column align="center" label="序号" type="index">
         </el-table-column>
         <el-table-column align="center" label="姓名" prop="name">
@@ -32,30 +43,57 @@
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
+            <el-button
+              size="mini"
+              type="danger"
+              @click="handleDelete(scope.$index, scope.row)"
+              >删除</el-button
+            >
           </template>
         </el-table-column>
       </el-table>
       <!-- 表格 -->
     </div>
     <!-- 添加表单弹窗 -->
-    <el-dialog title="添加教师信息" :visible.sync="dialogFormVisible" :modal-append-to-body="false" :append-to-body="false"
-      width="400px" :center="true">
+    <el-dialog
+      title="添加教师信息"
+      :visible.sync="dialogFormVisible"
+      :modal-append-to-body="false"
+      :append-to-body="false"
+      width="400px"
+      :center="true"
+    >
       <el-form :model="form">
         <el-form-item label="姓名" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" placeholder="输入姓名"></el-input>
+          <el-input
+            v-model="form.name"
+            autocomplete="off"
+            placeholder="输入姓名"
+          ></el-input>
         </el-form-item>
         <el-form-item label="用户名" :label-width="formLabelWidth">
-          <el-input v-model="form.username" autocomplete="off" placeholder="输入用户名(至少6位数)"></el-input>
+          <el-input
+            v-model="form.username"
+            autocomplete="off"
+            placeholder="输入用户名(至少6位数)"
+          ></el-input>
         </el-form-item>
         <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input v-model="form.password" autocomplete="off" placeholder="输入密码(至少6位数)"></el-input>
+          <el-input
+            v-model="form.password"
+            autocomplete="off"
+            placeholder="输入密码(至少6位数)"
+          ></el-input>
         </el-form-item>
-        <el-form-item label="学院" :label-width="formLabelWidth">
-          <el-input v-model="form.collage" autocomplete="off" placeholder="输入学院"></el-input>
+        <el-form-item label="班级" :label-width="formLabelWidth">
+          <el-select v-model="form.class" placeholder="选择所在的班级">
+            <el-option label="30" value="30"></el-option>
+          </el-select>
         </el-form-item>
-        <el-form-item label="专业" :label-width="formLabelWidth">
-          <el-input v-model="form.zy" autocomplete="off" placeholder="输入专业"></el-input>
+        <el-form-item label="课程" :label-width="formLabelWidth">
+          <el-select width="100%" v-model="form.course" placeholder="选择负责的科目">
+            <el-option label="1" value="数学"></el-option>
+          </el-select>
         </el-form-item>
       </el-form>
       <div slot="footer" class="dialog-footer">
@@ -68,7 +106,7 @@
 </template>
 
 <script>
-import { addTeacher, getTeacher, delateTeacher } from "@/api/admin"
+import { addTeacher, getTeacher, delateTeacher } from "@/api/admin";
 export default {
   data() {
     return {
@@ -81,14 +119,14 @@ export default {
         name: "",
         username: "",
         password: "",
-        collage: "",
-        zy: "",
+        class: "",
+        course: "",
       },
       formLabelWidth: "60px",
     };
   },
   created() {
-    this.getTeacher()
+    this.getTeacher();
   },
   methods: {
     // 添加
@@ -97,47 +135,55 @@ export default {
     },
     // 确定
     sure() {
-      var form = this.form
-      if (form.name.length < 2 || form.username.length < 6 || form.password.length < 6 || form.collage.length < 2 || form.zy.length < 2) {
+      var form = this.form;
+      if (
+        form.name.length < 2 ||
+        form.username.length < 6 ||
+        form.password.length < 6 ||
+        form.class.length < 2 ||
+        form.course.length < 2
+      ) {
         this.$message({
           message: "表单格式错误",
-          type: "warning"
-        })
+          type: "warning",
+        });
       } else {
         this.$showLoading("添加中...");
         var data = {
           name: form.name,
           username: form.username,
           password: form.password,
-          collage: form.collage,
-          zy: form.zy,
-          a_id: sessionStorage.getItem('token'),
-        }
-        addTeacher(data).then((res) => {
-          this.$hideLoading();
-          if (res.code == 200) {
-            this.$message({
-              message: "添加成功",
-              type: "success"
-            })
-            this.form = {
-              name: "",
-              username: "",
-              password: "",
-              collage: "",
-              zy: "",
+          class: form.class,
+          course: form.course,
+          a_id: sessionStorage.getItem("token"),
+        };
+        addTeacher(data)
+          .then((res) => {
+            this.$hideLoading();
+            if (res.code == 200) {
+              this.$message({
+                message: "添加成功",
+                type: "success",
+              });
+              this.form = {
+                name: "",
+                username: "",
+                password: "",
+                collage: "",
+                zy: "",
+              };
+              this.getTeacher();
+              this.dialogFormVisible = false;
+            } else {
+              this.$message({
+                message: res.msg,
+                type: "error",
+              });
             }
-            this.getTeacher()
-            this.dialogFormVisible = false;
-          } else {
-            this.$message({
-              message: res.msg,
-              type: "error"
-            })
-          }
-        }).catch((err) => {
-          this.$hideLoading()
-        })
+          })
+          .catch((err) => {
+            this.$hideLoading();
+          });
       }
     },
     // 取消
@@ -148,37 +194,39 @@ export default {
     handleDelete(index, row) {
       this.$showLoading("删除中...");
       var data = {
-        t_id: row.t_id
-      }
-      delateTeacher(data).then((res) => {
-        this.$hideLoading()
-        if (res.code == 200) {
-          this.$message({
-            message: "删除成功",
-            type: "success"
-          })
-          this.getTeacher()
-          this.dialogFormVisible = false;
-        } else {
-          this.$message({
-            message: res.msg,
-            type: "error"
-          })
-        }
-      }).catch((res) => {
-        this.$hideLoading()
-      })
+        t_id: row.t_id,
+      };
+      delateTeacher(data)
+        .then((res) => {
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "删除成功",
+              type: "success",
+            });
+            this.getTeacher();
+            this.dialogFormVisible = false;
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((res) => {
+          this.$hideLoading();
+        });
     },
     // 查找教师信息
     getTeacher() {
       var data = {
-        session: 'admin'
-      }
+        session: "admin",
+      };
       getTeacher(data).then((res) => {
-        this.$hideLoading()
-        this.tableData = res.data
-      })
-    }
+        this.$hideLoading();
+        this.tableData = res.data;
+      });
+    },
   },
 };
 </script>
@@ -193,20 +241,20 @@ export default {
   display: flex;
 }
 
-.header>div:nth-child(1) {
+.header > div:nth-child(1) {
   margin-left: 20px;
   margin-top: 8px;
   width: auto;
   height: 40px;
 }
 
-.header>div:nth-child(2) {
+.header > div:nth-child(2) {
   margin-top: 8px;
   width: auto;
   height: 40px;
 }
 
-.header>div:nth-child(2) .search {
+.header > div:nth-child(2) .search {
   margin-left: 20px;
   width: 200px;
   height: 100%;

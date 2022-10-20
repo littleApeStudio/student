@@ -51,20 +51,19 @@
         <el-form-item label="姓名" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off" placeholder="输入姓名"></el-input>
         </el-form-item>
-        <el-form-item label="性别" :label-width="formLabelWidth">
-          <el-input v-model="form.sex" autocomplete="off" placeholder="输入性别"></el-input>
-        </el-form-item>
         <el-form-item label="年龄" :label-width="formLabelWidth">
           <el-input v-model="form.age" autocomplete="off" placeholder="输入年龄"></el-input>
         </el-form-item>
+        <el-form-item label="性别" :label-width="formLabelWidth">
+          <el-select v-model="form.sex" placeholder="选择性别">
+            <el-option label="男" value="男"></el-option>
+            <el-option label="女" value="女"></el-option>
+          </el-select>
+        </el-form-item>
         <el-form-item label="班级" :label-width="formLabelWidth">
-          <el-input v-model="form.class" autocomplete="off" placeholder="输入班级"></el-input>
-        </el-form-item>
-        <el-form-item label="专业" :label-width="formLabelWidth">
-          <el-input v-model="form.zy" autocomplete="off" placeholder="输入专业"></el-input>
-        </el-form-item>
-        <el-form-item label="学院" :label-width="formLabelWidth">
-          <el-input v-model="form.collage" autocomplete="off" placeholder="输入学院"></el-input>
+          <el-select v-model="form.class" placeholder="选择所在的班级">
+            <el-option label="30" value="30"></el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="学号" :label-width="formLabelWidth">
           <el-input v-model="form.schoolID" autocomplete="off" placeholder="输入学号(至少为6位)"></el-input>
@@ -97,8 +96,6 @@ export default {
         age: "",
         sex: "",
         class: "",
-        zy: "",
-        collage: "",
         schoolID: "",
         password: "",
       },
@@ -116,7 +113,8 @@ export default {
     // 确定
     sure() {
       var form = this.form
-      if (form.name.length < 2 || form.sex.length < 1 || form.age.length < 1 || form.class.length < 2 || form.zy.length < 2 || form.collage.length < 2 || form.schoolID.length < 6 || form.password.length < 6) {
+      console.log(form.sex)
+      if (form.name.length < 2 || form.sex.length < 1 || form.age.length < 1 || form.class.length < 2 || form.schoolID.length < 6 || form.password.length < 6) {
         this.$message({
           message: "表单格式错误",
           type: "warning"
@@ -128,8 +126,6 @@ export default {
           age: form.age,
           sex: form.sex,
           class: form.class,
-          zy: form.zy,
-          collage: form.collage,
           schoolID: form.schoolID,
           password: form.password,
           a_id: sessionStorage.getItem('token'),
