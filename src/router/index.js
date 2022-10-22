@@ -45,7 +45,7 @@ const routes = [
   },
   // 首页
   {
-    path: '',
+    path: '/',
     name: 'student',
     component:() => import('@/views/student/index.vue')
   },

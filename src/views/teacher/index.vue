@@ -1,25 +1,32 @@
 <template>
-    <div></div>
+  <div class="teacher">
+    <div class="top">
+
+    </div>
+  </div>
 </template>
 <script>
 export default {
-    name: 'StudentLogin',
+  name: "StudentLogin",
 
-    data() {
-        return {
-            
-        };
-    },
+  data() {
+    return {};
+  },
 
-    mounted() {
-        
-    },
+  mounted() {},
 
-    methods: {
-        
-    },
+  methods: {},
 };
 </script>
 <style scoped>
+.teacher {
+  width: 100%;
+  height: 100%;
+}
 
+.teacher .top {
+    width: 100%;
+    height: 60px;
+    background: #ffffff;
+}
 </style>
