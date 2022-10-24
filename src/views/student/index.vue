@@ -1,5 +1,27 @@
 <template>
   <div class="student">
+    <div class="infos">
+      <div>
+        <div>姓名：</div>
+        <div>张三</div>
+      </div>
+      <div>
+        <div>年龄：</div>
+        <div>21</div>
+      </div>
+      <div>
+        <div>性别：</div>
+        <div>女</div>
+      </div>
+      <div>
+        <div>班级：</div>
+        <div>30</div>
+      </div>
+      <div>
+        <div>学号：</div>
+        <div>19013005</div>
+      </div>
+    </div>
     <div class="content">
       <div>修改信息</div>
       <div>参加考试</div>
@@ -24,6 +46,41 @@ export default {
 .student {
   width: 100%;
   height: 100%;
+}
+
+.student .infos {
+  padding: 20px 0;
+  margin: auto;
+  margin-top: 40px;
+  width: 640px;
+  height: auto;
+  background: #ffffff;
+  border-radius: 20px;
+}
+
+.student .infos > div {
+  margin: auto;
+  width: calc(100% - 100px);
+  display: flex;
+}
+
+.student .infos > div>div:nth-child(1) {
+  width: 100px;
+  height: 50px;
+  line-height: 50px;
+  color: #515151;
+  font-size: 16px;
+  text-align: left;
+}
+
+.student .infos > div>div:nth-child(2) {
+  flex: 1;
+  height: 50px;
+  line-height: 50px;
+  color: #313131;
+  font-size: 18px;
+  font-weight: bold;
+  text-align: left;
 }
 .student .content {
   margin: auto;
