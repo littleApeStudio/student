@@ -46,9 +46,6 @@
             <el-menu-item index='{"path":"course","name":"课程管理"}'
               >课程管理</el-menu-item
             >
-            <el-menu-item index='{"path":"shiti","name":"试题管理"}'
-              >试题管理</el-menu-item
-            >
           </el-menu-item-group>
         </el-submenu>
         <el-submenu index="其他管理">
@@ -59,6 +56,9 @@
           <el-menu-item-group>
             <el-menu-item index='{"path":"notice","name":"编写通知"}'
               >编写通知</el-menu-item
+            >
+            <el-menu-item index='{"path":"shiti","name":"试题管理"}'
+              >试题管理</el-menu-item
             >
             <el-menu-item index='{"path":"grade","name":"成绩统计"}'
               >成绩统计</el-menu-item

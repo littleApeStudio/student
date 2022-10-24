@@ -49,19 +49,19 @@ export default {
   background: #44c2fd;
 }
 .student .content > div:nth-child(1):hover {
-  box-shadow: 5px 0 5px #04b0ff;
+  box-shadow: 0 5px 5px #04b0ff;
 }
 .student .content > div:nth-child(2) {
   background: #9854cb;
 }
 .student .content > div:nth-child(2):hover {
-  box-shadow: 5px 0 5px #a02bfa;
+  box-shadow: 0 5px 5px #a02bfa;
 }
 .student .content > div:nth-child(3) {
   background: #f55951;
 }
 .student .content > div:nth-child(3):hover {
-  box-shadow: 5px 0 5px #fc3127;
+  box-shadow: 0 5px 5px #fc3127;
 }
 </style>
 <style>
