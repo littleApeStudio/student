@@ -20,13 +20,15 @@
         </el-table-column>
         <el-table-column align="center" label="姓名" prop="name">
         </el-table-column>
-        <el-table-column align="center" label="用户名" prop="username">
+        <el-table-column align="center" label="班级" prop="class">
         </el-table-column>
-        <el-table-column align="center" label="密码" prop="password">
+        <el-table-column align="center" label="科目一" prop="kemu">
         </el-table-column>
-        <el-table-column align="center" label="学院" prop="collage">
+        <el-table-column align="center" label="科目二" prop="kemu">
         </el-table-column>
-        <el-table-column align="center" label="专业" prop="zy">
+        <el-table-column align="center" label="科目三" prop="kemu">
+        </el-table-column>
+        <el-table-column align="center" label="总分" prop="grades">
         </el-table-column>
       </el-table>
       <!-- 表格 -->
@@ -42,10 +44,9 @@ export default {
       tableData: [
         {
           name: "王小虎",
-          username: "123123",
-          password: "123456",
-          collage: "信息与工程学院",
-          zy: "计算机科学与技术",
+          class: "123123",
+          kemu: "123456",
+          grades: "信息与工程学院",
         },
       ],
       search: "",

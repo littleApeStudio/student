@@ -16,19 +16,13 @@
           )
         "
       >
-        <el-table-column align="center" label="序号" type="index">
+        <el-table-column align="center" label="序号" type="index" width="100px">
         </el-table-column>
-        <el-table-column align="center" label="姓名" prop="name">
+        <el-table-column align="center" label="通知时间" prop="time" width="150px">
         </el-table-column>
-        <el-table-column align="center" label="用户名" prop="username">
+        <el-table-column align="center" label="通知内容" prop="text">
         </el-table-column>
-        <el-table-column align="center" label="密码" prop="password">
-        </el-table-column>
-        <el-table-column align="center" label="学院" prop="collage">
-        </el-table-column>
-        <el-table-column align="center" label="专业" prop="zy">
-        </el-table-column>
-        <el-table-column align="center" label="操作">
+        <el-table-column align="center" label="操作" width="100px">
           <template slot-scope="scope">
             <el-button
               size="mini"
@@ -43,7 +37,7 @@
     </div>
     <!-- 添加表单弹窗 -->
     <el-dialog
-      title="添加考试科目"
+      title="编写通知"
       :visible.sync="dialogFormVisible"
       :modal-append-to-body="false"
       :append-to-body="false"
@@ -51,39 +45,11 @@
       :center="true"
     >
       <el-form :model="form">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-form-item label="通知内容" label-width="80px">
           <el-input
-            v-model="form.name"
+            v-model="form.text"
             autocomplete="off"
-            placeholder="输入姓名"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="用户名" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.username"
-            autocomplete="off"
-            placeholder="输入用户名"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="密码" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.password"
-            autocomplete="off"
-            placeholder="输入密码"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="学院" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.collage"
-            autocomplete="off"
-            placeholder="输入学院"
-          ></el-input>
-        </el-form-item>
-        <el-form-item label="专业" :label-width="formLabelWidth">
-          <el-input
-            v-model="form.zy"
-            autocomplete="off"
-            placeholder="输入专业"
+            placeholder="输入通知内容"
           ></el-input>
         </el-form-item>
       </el-form>
@@ -103,24 +69,16 @@ export default {
       // 表格数据
       tableData: [
         {
-          name: "王小虎",
-          username: "123123",
-          password: "123456",
-          collage: "信息与工程学院",
-          zy: "计算机科学与技术",
+          text: "王小虎",
+          time: "2022-10-24 12:05:59",
         },
       ],
       search: "",
       // 添加弹窗显隐
       dialogFormVisible: false,
       form: {
-        name: "",
-        username: "",
-        password: "",
-        collage: "",
-        zy: "",
+        text: "",
       },
-      formLabelWidth: "60px",
     };
   },
   methods: {
