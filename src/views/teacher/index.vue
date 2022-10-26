@@ -1,16 +1,27 @@
 <template>
-  <div class="teacher">
-    <div class="top">
-
-    </div>
+  <div class="student">
+    <component :is="nowPage"></component>
   </div>
 </template>
 <script>
+import index from "./components/index.vue";
+import addTest from "./components/addTest.vue";
+import outGrade from "./components/outGrade.vue";
+import searchGrade from "./components/searchGrade.vue";
+import searchStudent from "./components/searchStudent.vue";
 export default {
-  name: "StudentLogin",
-
+  name: "Student",
+  components: {
+    index, //首页
+    addTest, //添加试题
+    outGrade, //到处成绩
+    searchGrade, //查询成绩,
+    searchStudent, //查询学生信息
+  },
   data() {
-    return {};
+    return {
+      nowPage: "index",
+    };
   },
 
   mounted() {},
@@ -19,14 +30,8 @@ export default {
 };
 </script>
 <style scoped>
-.teacher {
+.student {
   width: 100%;
   height: 100%;
-}
-
-.teacher .top {
-    width: 100%;
-    height: 60px;
-    background: #ffffff;
 }
 </style>

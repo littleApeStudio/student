@@ -39,13 +39,13 @@ const routes = [
   /*  ------ 学生 ------  */
   // 登录
   {
-    path: '/login',
+    path: '/student/login',
     name: 'login',
     component:() => import('@/views/student/login.vue')
   },
   // 首页
   {
-    path: '/',
+    path: '/student',
     name: 'student',
     component:() => import('@/views/student/index.vue')
   },
