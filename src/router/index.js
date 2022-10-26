@@ -49,6 +49,12 @@ const routes = [
     name: 'student',
     component:() => import('@/views/student/index.vue')
   },
+  /*  ------- 首页  ---- */
+  {
+    path: '/',
+    name: 'index',
+    component:() => import('@/views/index.vue')
+  },
 ]
 
 const router = new VueRouter({
