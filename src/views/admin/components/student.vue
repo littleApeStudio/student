@@ -97,8 +97,8 @@
               v-else
               v-for="(item, index) in classs"
               :key="index"
-              :label="item"
-              :value="item"
+              :label="item.name"
+              :value="item.name"
             ></el-option>
           </el-select>
         </el-form-item>

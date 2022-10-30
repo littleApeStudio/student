@@ -137,3 +137,27 @@ export function delateKemu(data) {
   })
 }
 
+// 添加通知
+export function addNotice(data) {
+  return request({
+    url: '/stuManage/api/admin/addNotice.php',
+    data: data
+  })
+}
+
+
+// 获取通知
+export function getNotice(data) {
+  return request({
+    url: '/stuManage/api/admin/getNotice.php',
+    data: data
+  })
+}
+
+// 删除通知
+export function delateNotice(data) {
+  return request({
+    url: '/stuManage/api/admin/delateNotice.php',
+    data: data
+  })
+}
