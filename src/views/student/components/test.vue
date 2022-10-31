@@ -1,9 +1,5 @@
 <template>
-  <div class="test">
-    <div class="header">
-      <el-page-header @back="goBack" content="参加考试"> </el-page-header>
-    </div>
-  </div>
+  <div class="test"></div>
 </template>
 <script>
 export default {
@@ -17,11 +13,7 @@ export default {
 
   mounted() {},
 
-  methods: {
-    goBack() {
-      this.$emit("update:nowPage", "index");
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>
@@ -29,15 +21,5 @@ export default {
   margin: auto;
   width: 100%;
   height: auto;
-}
-.test .header {
-  padding: 0 20px;
-  width: calc(100% - 40px);
-  height: 56px;
-  line-height: 56px;
-  background: #fff;
-}
-.test .header .el-page-header {
-  line-height: 56px;
 }
 </style>

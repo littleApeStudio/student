@@ -1,12 +1,15 @@
 <template>
   <div class="fix">
-    <div class="header">
-      <el-page-header @back="goBack" content="修改信息"> </el-page-header>
-    </div>
     <div class="content">
       <el-form label-width="80px">
         <el-form-item label="姓名">
-          <el-input v-model="form.name"></el-input>
+          <el-input disabled v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="班级">
+          <el-input disabled v-model="form.name"></el-input>
+        </el-form-item>
+        <el-form-item label="学号">
+          <el-input disabled v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="年龄">
           <el-input v-model="form.age"></el-input>
@@ -37,29 +40,10 @@ export default {
 
   mounted() {},
 
-  methods: {
-    goBack() {
-      this.$emit("update:nowPage", "index");
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>
-.fix {
-  margin: auto;
-  width: 100%;
-  height: auto;
-}
-.fix .header {
-  padding: 0 20px;
-  width: calc(100% - 40px);
-  height: 56px;
-  line-height: 56px;
-  background: #fff;
-}
-.fix .header .el-page-header {
-  line-height: 56px;
-}
 .fix .content {
   padding: 20px;
   margin: auto;
@@ -68,5 +52,13 @@ export default {
   height: auto;
   background: #fff;
   border-radius: 10px;
+}
+</style>
+<style>
+.el-input.is-disabled .el-input__inner {
+  background-color: #f9f9f9 !important;
+  border-color: none;
+  color: none;
+  cursor: default !important;
 }
 </style>
