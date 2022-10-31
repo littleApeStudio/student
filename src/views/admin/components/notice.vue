@@ -88,7 +88,7 @@ export default {
         var data = {
           time: this.gettime(),
           text: form.text,
-          a_id: sessionStorage.getItem("token"),
+          a_id: sessionStorage.getItem("a_token"),
         };
         addNotice(data)
           .then((res) => {

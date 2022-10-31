@@ -1,8 +1,5 @@
 <template>
   <div class="grade">
-    <div class="header">
-      <el-page-header @back="goBack" content="查询成绩"> </el-page-header>
-    </div>
     <div class="content">
       <el-input v-model="search" placeholder="输入关键字搜索" />
       <el-table
@@ -14,11 +11,16 @@
         "
         style="width: 100%"
       >
-        <el-table-column align="center" label="序号" type="index"> </el-table-column>
-        <el-table-column align="center" label="姓名" prop="name"> </el-table-column>
-        <el-table-column align="center" label="班级" prop="class"> </el-table-column>
-        <el-table-column align="center" label="科目" prop="kemu"> </el-table-column>
-        <el-table-column align="center" label="成绩" prop="grade"> </el-table-column>
+        <el-table-column align="center" label="序号" type="index">
+        </el-table-column>
+        <el-table-column align="center" label="姓名" prop="name">
+        </el-table-column>
+        <el-table-column align="center" label="班级" prop="class">
+        </el-table-column>
+        <el-table-column align="center" label="科目" prop="kemu">
+        </el-table-column>
+        <el-table-column align="center" label="成绩" prop="grade">
+        </el-table-column>
       </el-table>
     </div>
   </div>
@@ -57,30 +59,10 @@ export default {
 
   mounted() {},
 
-  methods: {
-    goBack() {
-      this.$emit("update:nowPage", "index");
-    },
-  },
+  methods: {},
 };
 </script>
 <style scoped>
-.grade {
-  margin: auto;
-  width: 100%;
-  height: auto;
-}
-.grade .header {
-  padding: 0 20px;
-  width: calc(100% - 40px);
-  height: 56px;
-  line-height: 56px;
-  background: #fff;
-}
-.grade .header .el-page-header {
-  line-height: 56px;
-}
-
 .grade .content {
   padding: 20px;
   background: #fff;

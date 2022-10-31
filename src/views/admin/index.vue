@@ -77,7 +77,9 @@
         </div>
         <div class="tip">
           <el-breadcrumb class="tip" separator-class="el-icon-arrow-right">
-            <el-breadcrumb-item v-for="(item,index) in menuTip" :key="index">{{item}}</el-breadcrumb-item>
+            <el-breadcrumb-item v-for="(item, index) in menuTip" :key="index">{{
+              item
+            }}</el-breadcrumb-item>
           </el-breadcrumb>
         </div>
       </div>
@@ -128,8 +130,18 @@ export default {
         "grade",
       ],
       // 导航进度
-      menuTip:['首页']
+      menuTip: ["首页"],
     };
+  },
+  created() {
+    var a_token = sessionStorage.getItem("a_token");
+    if (a_token == null) {
+      this.$message({
+        message: "你还没有登录哦",
+        type: "warning",
+      });
+      this.$router.push("/login");
+    }
   },
   methods: {
     // 菜单收缩
@@ -144,10 +156,10 @@ export default {
       var menuName2 = JSON.parse(key).name;
       var path = JSON.parse(key).path;
       this.nowPage = path;
-      if (menuName2 == '首页'){
-        this.menuTip=[menuName2]
-      } else{
-        this.menuTip=[menuName1,menuName2]
+      if (menuName2 == "首页") {
+        this.menuTip = [menuName2];
+      } else {
+        this.menuTip = [menuName1, menuName2];
       }
     },
   },

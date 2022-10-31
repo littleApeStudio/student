@@ -182,7 +182,7 @@ export default {
           class: form.class,
           schoolID: form.schoolID,
           password: form.password,
-          a_id: sessionStorage.getItem("token"),
+          a_id: sessionStorage.getItem("a_token"),
         };
         addStudent(data)
           .then((res) => {

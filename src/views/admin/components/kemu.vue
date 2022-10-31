@@ -128,7 +128,7 @@ export default {
         var data = {
           name: form.name,
           class: form.class,
-          a_id: sessionStorage.getItem("token"),
+          a_id: sessionStorage.getItem("a_token"),
         };
         addKemu(data)
           .then((res) => {
