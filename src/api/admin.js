@@ -170,3 +170,19 @@ export function delateShiti(data) {
     data: data
   })
 }
+
+// 添加题目
+export function addXuanze(data) {
+  return request({
+    url: '/stuManage/api/admin/addXuanze.php',
+    data: data
+  })
+}
+
+// 查看题目
+export function getXuanze(data) {
+  return request({
+    url: '/stuManage/api/admin/getXuanze.php',
+    data: data
+  })
+}

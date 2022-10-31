@@ -22,7 +22,8 @@
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">添加题目</el-button>
-            <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
+            <el-button @click="look(scope.row)" type="text" size="small">查看题目</el-button>
+            <el-button @click="handleDelete(scope.row)" type="text" size="small">删除试题</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -78,18 +79,33 @@
         <el-form-item label="分值" prop="grade">
           <el-input v-model="content.grade" placeholder="输入该题的分值"></el-input>
         </el-form-item>
-        <el-form-item label="正确答案" prop="true">
-          <el-select v-model="form.class" placeholder="选择正确选项">
+        <el-form-item label="正确答案" prop="xtrue">
+          <el-select v-model="content.xtrue" placeholder="选择正确选项">
             <el-option v-for="(item, index) in xuanxiang" :key="index" :label="item" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item>
-          <el-button type="primary" @click="save('ruleForm')">保存</el-button>
+          <el-button type="primary" @click="save">保存</el-button>
         </el-form-item>
       </el-form>
     </el-dialog>
     <!-- 添加试题内容 -->
+    <!-- 查看题目 -->
+    <el-dialog title="查看题目" :visible.sync="looktimu" :modal-append-to-body="false" :append-to-body="false" width="70%">
+      <el-table :data="timus" height="500px">
+        <el-table-column align="center" label="序号" type="index">
+        </el-table-column>
+        <el-table-column align="center" property="timu" label="题目" width="150"></el-table-column>
+        <el-table-column align="center" property="A" label="选项A" width="200"></el-table-column>
+        <el-table-column align="center" property="B" label="选项B" width="200"></el-table-column>
+        <el-table-column align="center" property="C" label="选项C" width="200"></el-table-column>
+        <el-table-column align="center" property="D" label="选项D" width="200"></el-table-column>
+        <el-table-column align="center" property="xtrue" label="正确答案" width="200"></el-table-column>
+        <el-table-column align="center" property="grade" label="分值"></el-table-column>
+      </el-table>
+    </el-dialog>
+    <!-- 查看题目 -->
   </div>
 </template>
 
@@ -99,7 +115,9 @@ import {
   getClass,
   addShiti,
   getShiti,
-  delateShiti
+  delateShiti,
+  addXuanze,
+  getXuanze
 } from "@/api/admin";
 export default {
   data() {
@@ -115,7 +133,9 @@ export default {
       formLabelWidth: "60px",
       content: {},
       showContent: false,
-      xuanxiang: ['A','B','C','D']
+      xuanxiang: ['A', 'B', 'C', 'D'],
+      timus: [],
+      looktimu: false
     };
   },
   created() {
@@ -256,10 +276,81 @@ export default {
     // 添加试题内容
     handleClick(e) {
       this.showContent = true
-      console.log(e.xuanze)
+      this.xuanze = e.xuanze
     },
     handleClose() {
       this.showContent = false
+    },
+    // 保存题目
+    save() {
+      var form = this.content
+      if (form.timu == undefined || form.A == undefined || form.B == undefined || form.C == undefined || form.D == undefined || form.xtrue == undefined || form.grade == undefined) {
+        this.$message({
+          message: "请检查内容是否有空值",
+          type: "warning"
+        })
+      } else {
+        console.log(this.xuanze)
+        this.$showLoading("添加中...");
+        var data = {
+          timu: form.timu,
+          A: form.A,
+          B: form.B,
+          C: form.C,
+          D: form.D,
+          xtrue: form.xtrue,
+          grade: form.grade,
+          xuanze: this.xuanze,
+          a_id: sessionStorage.getItem("a_token"),
+        };
+        addXuanze(data)
+          .then((res) => {
+            this.$hideLoading();
+            if (res.code == 200) {
+              this.$message({
+                message: "添加成功",
+                type: "success",
+              });
+              this.form = {
+                name: ""
+              };
+              this.showContent = false
+              this.content = {}
+            } else {
+              this.$message({
+                message: res.msg,
+                type: "error",
+              });
+            }
+          })
+          .catch((err) => {
+            this.$hideLoading();
+          });
+      }
+    },
+    // 查看题目
+    look(e) {
+      this.looktimu = true
+      this.$showLoading("查询中...");
+      var data = {
+        a_id: sessionStorage.getItem("a_token"),
+        xuanze: e.xuanze
+      }
+      getXuanze(data)
+        .then((res) => {
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.timus = res.data
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$hideLoading();
+        });
     }
   },
 };
