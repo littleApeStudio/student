@@ -260,7 +260,7 @@ export default {
     // 查找学生信息
     getStudent() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getStudent(data).then((res) => {
         this.tableData = res.data;
@@ -269,7 +269,7 @@ export default {
     // 查找班级信息
     getClass() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getClass(data).then((res) => {
         this.$hideLoading();

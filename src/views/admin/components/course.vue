@@ -156,7 +156,7 @@ export default {
     // 查找课程信息
     getCourse() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getCourse(data).then((res) => {
         this.$hideLoading();

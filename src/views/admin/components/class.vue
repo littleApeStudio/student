@@ -156,7 +156,7 @@ export default {
     // 查找班级信息
     getClass() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getClass(data).then((res) => {
         this.$hideLoading();

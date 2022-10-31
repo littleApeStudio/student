@@ -21,7 +21,7 @@
         </el-table-column>
         <el-table-column label="操作" align="center">
           <template slot-scope="scope">
-            <el-button @click="handleClick(scope.row)" type="text" size="small">编辑</el-button>
+            <el-button @click="handleClick(scope.row)" type="text" size="small">添加题目</el-button>
             <el-button @click="handleDelete(scope.row)" type="text" size="small">删除</el-button>
           </template>
         </el-table-column>
@@ -32,7 +32,7 @@
     <el-dialog title="添加试题" :visible.sync="dialogFormVisible" :modal-append-to-body="false" :append-to-body="false"
       width="400px" :center="true">
       <el-form :model="form">
-        <el-form-item label="姓名" :label-width="formLabelWidth">
+        <el-form-item label="试题" :label-width="formLabelWidth">
           <el-input v-model="form.name" autocomplete="off" placeholder="输入试题名"></el-input>
         </el-form-item>
 
@@ -57,6 +57,39 @@
       </div>
     </el-dialog>
     <!-- 添加表单弹窗 -->
+    <el-dialog title="添加试题内容" :visible.sync="showContent" width="30%" :modal-append-to-body="false"
+      :append-to-body="false" :before-close="handleClose">
+      <el-form :model="content" status-icon label-width="100px" class="demo-ruleForm">
+        <el-form-item label="题目" prop="timu">
+          <el-input v-model="content.timu" autocomplete="off" placeholder="输入题目"></el-input>
+        </el-form-item>
+        <el-form-item label="选项A" prop="A">
+          <el-input v-model="content.A" placeholder="输入选项A的内容" autocomplete="off"></el-input>
+        </el-form-item>
+        <el-form-item label="选项B" prop="B">
+          <el-input v-model="content.B" placeholder="输入选项B的内容"></el-input>
+        </el-form-item>
+        <el-form-item label="选项C" prop="C">
+          <el-input v-model="content.C" placeholder="输入选项C的内容"></el-input>
+        </el-form-item>
+        <el-form-item label="选项D" prop="D">
+          <el-input v-model="content.D" placeholder="输入选项D的内容"></el-input>
+        </el-form-item>
+        <el-form-item label="分值" prop="grade">
+          <el-input v-model="content.grade" placeholder="输入该题的分值"></el-input>
+        </el-form-item>
+        <el-form-item label="正确答案" prop="true">
+          <el-select v-model="form.class" placeholder="选择正确选项">
+            <el-option v-for="(item, index) in xuanxiang" :key="index" :label="item" :value="item">
+            </el-option>
+          </el-select>
+        </el-form-item>
+        <el-form-item>
+          <el-button type="primary" @click="save('ruleForm')">保存</el-button>
+        </el-form-item>
+      </el-form>
+    </el-dialog>
+    <!-- 添加试题内容 -->
   </div>
 </template>
 
@@ -80,6 +113,9 @@ export default {
       dialogFormVisible: false,
       form: {},
       formLabelWidth: "60px",
+      content: {},
+      showContent: false,
+      xuanxiang: ['A','B','C','D']
     };
   },
   created() {
@@ -110,7 +146,7 @@ export default {
           name: form.name,
           kemu: form.kemu,
           class: form.class,
-          a_id: sessionStorage.getItem("token"),
+          a_id: sessionStorage.getItem("a_token"),
         };
         addShiti(data)
           .then((res) => {
@@ -190,7 +226,7 @@ export default {
     // 查找试题信息
     getShiti() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getShiti(data).then((res) => {
         this.$hideLoading();
@@ -200,7 +236,7 @@ export default {
     // 查找班级信息
     getClass() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getClass(data).then((res) => {
         this.$hideLoading();
@@ -210,13 +246,21 @@ export default {
     // 查找科目信息
     getKemu() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getKemu(data).then((res) => {
         this.$hideLoading();
         this.kemus = res.data;
       });
     },
+    // 添加试题内容
+    handleClick(e) {
+      this.showContent = true
+      console.log(e.xuanze)
+    },
+    handleClose() {
+      this.showContent = false
+    }
   },
 };
 </script>

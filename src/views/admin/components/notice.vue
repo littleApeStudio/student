@@ -163,7 +163,7 @@ export default {
     // 查找科目信息
     getNotice() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getNotice(data).then((res) => {
         this.$hideLoading();

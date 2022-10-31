@@ -213,7 +213,7 @@ export default {
     // 查找教师信息
     getTeacher() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getTeacher(data).then((res) => {
         this.$hideLoading();
@@ -223,7 +223,7 @@ export default {
     // 查找班级信息
     getClass() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getClass(data).then((res) => {
         this.$hideLoading();
@@ -233,7 +233,7 @@ export default {
     // 查找课程信息
     getCourse() {
       var data = {
-        session: "admin",
+        a_id: sessionStorage.getItem("a_token"),
       };
       getCourse(data).then((res) => {
         this.$hideLoading();
