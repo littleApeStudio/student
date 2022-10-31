@@ -117,11 +117,11 @@ export default {
     sure() {
       var form = this.form;
       if (
-        form.name.length < 2 ||
-        form.username.length < 6 ||
-        form.password.length < 6 ||
-        form.class.length < 2 ||
-        form.course.length < 2
+        form.name.length < 1 ||
+        form.username.length < 1 ||
+        form.password.length < 1 ||
+        form.class.length < 1 ||
+        form.course.length < 1
       ) {
         this.$message({
           message: "表单格式错误",
@@ -181,6 +181,7 @@ export default {
           this.$showLoading("删除中...");
           var data = {
             t_id: row.t_id,
+            a_id: sessionStorage.getItem("a_token")
           };
           delateTeacher(data)
             .then((res) => {

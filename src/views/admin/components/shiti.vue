@@ -214,6 +214,7 @@ export default {
             st_id: row.st_id,
             tiankong: row.tiankong,
             xuanze: row.xuanze,
+            a_id: sessionStorage.getItem("a_token")
           };
           delateShiti(data)
             .then((res) => {

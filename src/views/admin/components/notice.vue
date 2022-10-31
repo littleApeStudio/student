@@ -131,6 +131,7 @@ export default {
           this.$showLoading("删除中...");
           var data = {
             notice_id: row.notice_id,
+            a_id: sessionStorage.getItem("a_token")
           };
           delateNotice(data)
             .then((res) => {

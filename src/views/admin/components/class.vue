@@ -75,7 +75,7 @@ export default {
     sure() {
       var form = this.form;
       if (
-        form.name.length < 2) {
+        form.name.length < 1) {
         this.$message({
           message: "表单格式错误",
           type: "warning",
@@ -125,6 +125,7 @@ export default {
         this.$showLoading("删除中...");
         var data = {
           class_id: row.class_id,
+          a_id: sessionStorage.getItem("a_token")
         };
         delateClass(data)
           .then((res) => {

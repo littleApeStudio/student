@@ -2,41 +2,19 @@
   <div class="register_box">
     <div class="register">
       <div class="logo"><img src="@/assets/logo.png" /></div>
-      <el-form
-        label-position="right"
-        :model="userData"
-        status-icon
-        ref="userData"
-        label-width="100px"
-        class="demo-ruleForm"
-      >
+      <el-form label-position="right" :model="userData" status-icon ref="userData" label-width="100px"
+        class="demo-ruleForm">
         <el-form-item label-width="70px" label="姓名" prop="name">
-          <el-input
-            v-model.number="userData.name"
-            placeholder="请输入姓名"
-          ></el-input>
+          <el-input v-model.number="userData.name" placeholder="请输入姓名"></el-input>
         </el-form-item>
         <el-form-item label-width="70px" label="账号" prop="username">
-          <el-input
-            v-model.number="userData.username"
-            placeholder="请输入账号"
-          ></el-input>
+          <el-input v-model.number="userData.username" placeholder="请输入账号"></el-input>
         </el-form-item>
         <el-form-item label-width="70px" label="密码" prop="pass">
-          <el-input
-            type="password"
-            v-model="userData.pass"
-            autocomplete="off"
-            placeholder="请输入密码"
-          ></el-input>
+          <el-input type="password" v-model="userData.pass" autocomplete="off" placeholder="请输入密码"></el-input>
         </el-form-item>
         <el-form-item label-width="70px" label="确认密码" prop="checkPass">
-          <el-input
-            type="password"
-            v-model="userData.checkPass"
-            autocomplete="off"
-            placeholder="请再次输入密码"
-          ></el-input>
+          <el-input type="password" v-model="userData.checkPass" autocomplete="off" placeholder="请再次输入密码"></el-input>
         </el-form-item>
         <el-form-item label-width="70px">
           <el-button type="primary" @click="submitForm('userData')">立即注册</el-button>
@@ -64,45 +42,44 @@ export default {
     console.log(window.location.port);
   },
   methods: {
-    submitForm(formName) {
-      this.$refs[formName].validate((valid) => {
-        if (valid) {
-          this.$showLoading("注册中...");
-          register(this.userData)
-            .then((res) => {
-              this.$hideLoading();
-              if (res.code == 200) {
-                this.$message({
-                  message: "注册成功",
-                  type: "success",
-                });
-                this.userData = {
-                  name: "",
-                  username: "",
-                  pass: "",
-                  checkPass: "",
-                };
-                this.$router.push("/admin/login");
-              } else {
-                this.$message({
-                  message: res.msg,
-                  type: "error",
-                });
-              }
-            })
-            .catch((err) => {
-              this.$hideLoading();
-            });
-        } else {
-          this.$message({
-            message: "请先填写数据",
-            type: "warning",
+    submitForm() {
+      var form = this.userData
+      if (form.name != "" || form.username != "" || form.pass != "" || form.checkPass == form.pass) {
+        this.$showLoading("注册中...");
+        register(this.userData)
+          .then((res) => {
+            this.$hideLoading();
+            if (res.code == 200) {
+              this.$message({
+                message: "注册成功",
+                type: "success",
+              });
+              this.userData = {
+                name: "",
+                username: "",
+                pass: "",
+                checkPass: "",
+              };
+              this.$router.push("/login");
+            } else {
+              this.$message({
+                message: res.msg,
+                type: "error",
+              });
+            }
+          })
+          .catch((err) => {
+            this.$hideLoading();
           });
-        }
-      });
+      } else {
+        this.$message({
+          message: "请检查填写的数据",
+          type: "warning",
+        });
+      }
     },
     // 管理员登录
-    login(){
+    login() {
       this.$router.push("/login")
     }
   },
@@ -115,7 +92,8 @@ export default {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: #a8edea; /* 不支持线性的时候显示 */
+  background-color: #a8edea;
+  /* 不支持线性的时候显示 */
   background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
 }
 
@@ -141,7 +119,7 @@ export default {
   height: 100px;
 }
 
-.register .logo > img {
+.register .logo>img {
   width: 100%;
   height: 100%;
 }
