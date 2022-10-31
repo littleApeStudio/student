@@ -104,7 +104,9 @@
                     ></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px">
-                    <el-button type="primary" @click="submitForm('userData')">立即登录</el-button>
+                    <el-button type="primary" @click="submitForm('userData')"
+                      >立即登录</el-button
+                    >
                     <el-button @click="register">注册</el-button>
                   </el-form-item>
                 </el-form>
@@ -129,6 +131,12 @@ export default {
         pass: "",
       },
     };
+  },
+
+  created(){
+    sessionStorage.removeItem("a_token")
+    sessionStorage.removeItem("s_token")
+    sessionStorage.removeItem("t_token")
   },
 
   mounted() {},
@@ -161,9 +169,15 @@ export default {
       }
     },
     // 学生登录
-    slogin() {},
+    slogin() {
+      sessionStorage.setItem("s_token", "res.data.a_id");
+      this.$router.push("/");
+    },
     // 教师登录
-    tlogin() {},
+    tlogin() {
+      sessionStorage.setItem("t_token", "res.data.a_id");
+      this.$router.push("/");
+    },
     // 管理员登录
     alogin() {
       this.$showLoading("登陆中...");
@@ -179,7 +193,7 @@ export default {
               username: "",
               pass: "",
             };
-            sessionStorage.setItem("token", res.data.a_id);
+            sessionStorage.setItem("a_token", res.data.a_id);
             this.$router.push("/admin");
           } else {
             this.$message({
@@ -193,9 +207,9 @@ export default {
         });
     },
     // 管理员注册
-    register(){
-      this.$router.push("/register")
-    }
+    register() {
+      this.$router.push("/register");
+    },
   },
 };
 </script>
@@ -221,6 +235,7 @@ export default {
   background: #fff;
   box-shadow: 0 0 5px #eeeeee;
   border-radius: 5px;
+  user-select: none;
 }
 
 .login_box .title {

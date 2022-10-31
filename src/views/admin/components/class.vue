@@ -84,7 +84,7 @@ export default {
         this.$showLoading("添加中...");
         var data = {
           name: form.name,
-          a_id: sessionStorage.getItem("token"),
+          a_id: sessionStorage.getItem("a_token"),
         };
         addClass(data)
           .then((res) => {
