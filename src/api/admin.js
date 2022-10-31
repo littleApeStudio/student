@@ -161,3 +161,28 @@ export function delateNotice(data) {
     data: data
   })
 }
+
+// 添加试题
+export function addShiti(data) {
+  return request({
+    url: '/stuManage/api/admin/addShiti.php',
+    data: data
+  })
+}
+
+
+// 获取试题
+export function getShiti(data) {
+  return request({
+    url: '/stuManage/api/admin/getShiti.php',
+    data: data
+  })
+}
+
+// 删除试题
+export function delateShiti(data) {
+  return request({
+    url: '/stuManage/api/admin/delateShiti.php',
+    data: data
+  })
+}
