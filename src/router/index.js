@@ -5,18 +5,6 @@ Vue.use(VueRouter)
 
 const routes = [
   /*  ------ 管理员 ------  */
-  // 登录
-  {
-    path: '/admin/login',
-    name: 'alogin',
-    component:() => import('@/views/admin/login.vue')
-  },
-  // 注册
-  {
-    path: '/admin/register',
-    name: 'aregister',
-    component:() => import('@/views/admin/register.vue')
-  },
   // 首页
   {
     path: '/admin',
@@ -24,12 +12,6 @@ const routes = [
     component:() => import('@/views/admin/index.vue')
   },
   /*  ------ 老师 ------  */
-  // 登录
-  {
-    path: '/teacher/login',
-    name: 'tlogin',
-    component:() => import('@/views/teacher/login.vue')
-  },
   // 首页
   {
     path: '/teacher',
@@ -37,12 +19,6 @@ const routes = [
     component:() => import('@/views/teacher/index.vue')
   },
   /*  ------ 学生 ------  */
-  // 登录
-  {
-    path: '/student/login',
-    name: 'login',
-    component:() => import('@/views/student/login.vue')
-  },
   // 首页
   {
     path: '/student',
@@ -54,6 +30,18 @@ const routes = [
     path: '/',
     name: 'index',
     component:() => import('@/views/index.vue')
+  },
+  /*  ------- 登录  ---- */
+  {
+    path: '/login',
+    name: 'login',
+    component:() => import('@/views/login.vue')
+  },
+  /*  ------- 注册  ---- */
+  {
+    path: '/register',
+    name: 'register',
+    component:() => import('@/views/register.vue')
   },
 ]
 

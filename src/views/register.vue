@@ -1,20 +1,25 @@
 <template>
-  <div class="login_box">
-    <div class="login">
+  <div class="register_box">
+    <div class="register">
       <div class="logo"><img src="@/assets/logo.png" /></div>
       <el-form
         label-position="right"
         :model="userData"
         status-icon
-        :rules="rules"
         ref="userData"
         label-width="100px"
         class="demo-ruleForm"
       >
-        <el-form-item label-width="70px" label="学号" prop="username">
+        <el-form-item label-width="70px" label="姓名" prop="name">
+          <el-input
+            v-model.number="userData.name"
+            placeholder="请输入姓名"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label-width="70px" label="账号" prop="username">
           <el-input
             v-model.number="userData.username"
-            placeholder="请输入学号"
+            placeholder="请输入账号"
           ></el-input>
         </el-form-item>
         <el-form-item label-width="70px" label="密码" prop="pass">
@@ -25,67 +30,59 @@
             placeholder="请输入密码"
           ></el-input>
         </el-form-item>
+        <el-form-item label-width="70px" label="确认密码" prop="checkPass">
+          <el-input
+            type="password"
+            v-model="userData.checkPass"
+            autocomplete="off"
+            placeholder="请再次输入密码"
+          ></el-input>
+        </el-form-item>
         <el-form-item label-width="70px">
-          <el-button
-            style="width: 100%"
-            type="primary"
-            @click="submitForm('userData')"
-            >登录</el-button
-          >
+          <el-button type="primary" @click="submitForm('userData')">立即注册</el-button>
+          <el-button @click="login">登录</el-button>
         </el-form-item>
       </el-form>
     </div>
   </div>
 </template>
-  
+
 <script>
-import { login } from "@/api/admin";
+import { register } from "@/api/login";
 export default {
   data() {
-    var checkusername = (rule, value, callback) => {
-      if (String(value).length < 3) {
-        callback(new Error("学号至少为 3 位数"));
-      } else {
-        callback();
-      }
-    };
-    var validatePass = (rule, value, callback) => {
-      if (value.length < 6) {
-        callback(new Error("密码至少为 6 位数"));
-      } else {
-        callback();
-      }
-    };
     return {
       userData: {
+        name: "",
         username: "",
         pass: "",
-      },
-      rules: {
-        pass: [{ validator: validatePass, trigger: "blur" }],
-        username: [{ validator: checkusername, trigger: "blur" }],
+        checkPass: "",
       },
     };
+  },
+  created() {
+    console.log(window.location.port);
   },
   methods: {
     submitForm(formName) {
       this.$refs[formName].validate((valid) => {
         if (valid) {
-          this.$showLoading("登陆中...");
-          login(this.userData)
+          this.$showLoading("注册中...");
+          register(this.userData)
             .then((res) => {
               this.$hideLoading();
               if (res.code == 200) {
                 this.$message({
-                  message: "登录成功",
+                  message: "注册成功",
                   type: "success",
                 });
                 this.userData = {
+                  name: "",
                   username: "",
                   pass: "",
+                  checkPass: "",
                 };
-                sessionStorage.setItem("token", res.data.a_id);
-                this.$router.push("/admin");
+                this.$router.push("/admin/login");
               } else {
                 this.$message({
                   message: res.msg,
@@ -104,16 +101,25 @@ export default {
         }
       });
     },
+    // 管理员登录
+    login(){
+      this.$router.push("/login")
+    }
   },
 };
 </script>
 <style scoped>
-.login_box {
+.register_box {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 100%;
   height: 100%;
+  background-color: #a8edea; /* 不支持线性的时候显示 */
+  background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
 }
 
-.login {
+.register {
   position: absolute;
   top: 50%;
   left: 50%;
@@ -127,7 +133,7 @@ export default {
   box-shadow: 0 0 10px #dddddd;
 }
 
-.login .logo {
+.register .logo {
   padding-bottom: 20px;
   margin: auto;
   margin-top: -70px;
@@ -135,7 +141,7 @@ export default {
   height: 100px;
 }
 
-.login .logo > img {
+.register .logo > img {
   width: 100%;
   height: 100%;
 }
@@ -145,4 +151,3 @@ body {
   background: #f7f7f7;
 }
 </style>
-  
