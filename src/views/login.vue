@@ -230,7 +230,7 @@ export default {
   text-align: center;
   font-size: 30px;
   font-weight: bold;
-  -webkit-background-clip: text;
+  background-clip: text;
   -webkit-text-fill-color: transparent;
   background-image: linear-gradient(to right, #92fe9d 0%, #00c9ff 100%);
   letter-spacing: 2px;
