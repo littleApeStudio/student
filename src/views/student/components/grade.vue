@@ -1,21 +1,11 @@
 <template>
   <div class="grade">
     <div class="content">
-      <el-input v-model="search" placeholder="输入关键字搜索" />
       <el-table
-        :data="
-          tableData.filter(
-            (data) =>
-              !search || data.name.toLowerCase().includes(search.toLowerCase())
-          )
-        "
+        :data="tableData"
         style="width: 100%"
       >
         <el-table-column align="center" label="序号" type="index">
-        </el-table-column>
-        <el-table-column align="center" label="姓名" prop="name">
-        </el-table-column>
-        <el-table-column align="center" label="班级" prop="class">
         </el-table-column>
         <el-table-column align="center" label="科目" prop="kemu">
         </el-table-column>
@@ -34,23 +24,23 @@ export default {
       tableData: [
         {
           date: "2016-05-02",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1518 弄",
+          kemu: "王小虎",
+          grade: "上海市普陀区金沙江路 1518 弄",
         },
         {
-          date: "2016-05-04",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1517 弄",
+          date: "2016-05-02",
+          kemu: "王小虎",
+          grade: "上海市普陀区金沙江路 1518 弄",
         },
         {
-          date: "2016-05-01",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1519 弄",
+          date: "2016-05-02",
+          kemu: "王小虎",
+          grade: "上海市普陀区金沙江路 1518 弄",
         },
         {
-          date: "2016-05-03",
-          name: "王小虎",
-          address: "上海市普陀区金沙江路 1516 弄",
+          date: "2016-05-02",
+          kemu: "王小虎",
+          grade: "上海市普陀区金沙江路 1518 弄",
         },
       ],
       search: "",

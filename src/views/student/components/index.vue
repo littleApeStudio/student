@@ -46,6 +46,7 @@ export default {
   width: 660px;
   height: auto;
   display: flex;
+  justify-content: center;
 }
 .student .content > div {
   margin: 0 10px;
@@ -60,7 +61,7 @@ export default {
   cursor: pointer;
   user-select: none;
 }
-.teacher .content > div:hover {
+.student .content > div:hover {
   font-size: 22px;
 }
 .student .content > div:nth-child(1) {
