@@ -5,7 +5,6 @@
       <div @click="addTest">添加考试</div>
       <div @click="searchGrade">查询成绩</div>
       <div @click="studentInfo">学生信息</div>
-      <div @click="outGrade">成绩导出</div>
     </div>
   </div>
 </template>
@@ -40,11 +39,6 @@ export default {
         this.$emit("update:nowPage", "searchStudent");
       this.$emit("update:nav", "学生信息");
     },
-    // 成绩导出
-    outGrade(){
-        this.$emit("update:nowPage", "outGrade");
-      this.$emit("update:nav", "成绩导出");
-    }
   },
 };
 </script>

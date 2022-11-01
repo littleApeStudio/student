@@ -121,7 +121,7 @@ export default {
         message: "你还没有登录哦",
         type: "warning",
       });
-      this.$router.push("/login");
+      // this.$router.push("/login");
     }
   },
   methods: {

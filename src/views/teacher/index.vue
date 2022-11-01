@@ -1,41 +1,50 @@
 <template>
   <div class="teacher_box">
-    <div class="header">
-      <el-page-header v-if="nowPage != 'index'" @back="goBack" :content="nav">
-      </el-page-header>
+    <el-menu
+      :default-active="nowPage"
+      class="el-menu"
+      mode="horizontal"
+      @select="handleSelect"
+      background-color="#ffffff"
+      text-color="#313131"
+      active-text-color="#3a9efd"
+    >
+      <el-menu-item index="index">首页</el-menu-item>
+      <el-menu-item index="searchStudent">查询学生信息</el-menu-item>
+      <el-menu-item index="addShiti">添加试题</el-menu-item>
+      <el-menu-item index="addTest">添加考试</el-menu-item>
+      <el-menu-item index="searchGrade">查询成绩</el-menu-item>
       <div class="info">
         <div><span class="iconfont icon-touxiang"></span></div>
         <div>你好，张三</div>
         <div><span class="iconfont icon-tuichu"></span> 退出登录</div>
       </div>
-    </div>
+    </el-menu>
     <div>
       <component
         :is="nowPage"
         :nowPage.sync="nowPage"
-        :nav.sync="nav"
       ></component>
     </div>
   </div>
 </template>
 <script>
 import index from "./components/index.vue";
+import addShiti from "./components/addShiti.vue";
 import addTest from "./components/addTest.vue";
-import outGrade from "./components/outGrade.vue";
 import searchGrade from "./components/searchGrade.vue";
 import searchStudent from "./components/searchStudent.vue";
 export default {
   name: "Student",
   components: {
     index, //首页
+    addShiti, //添加试题
     addTest, //添加考试
-    outGrade, //到处成绩
     searchGrade, //查询成绩,
     searchStudent, //查询学生信息
   },
   data() {
     return {
-      nav: "",
       nowPage: "index",
     };
   },
@@ -43,9 +52,8 @@ export default {
   mounted() {},
 
   methods: {
-    goBack() {
-      this.nowPage = "index";
-      this.nav = "";
+    handleSelect(key, keyPath) {
+      this.nowPage = key
     },
   },
 };
@@ -91,14 +99,14 @@ export default {
 .header .el-page-header {
   line-height: 56px;
 }
-.header .info {
+.info {
   flex: 1;
   height: 56px;
   line-height: 56px;
   display: flex;
   justify-content: flex-end;
 }
-.header .info > div:nth-child(1) {
+.info > div:nth-child(1) {
   margin: 8px;
   width: 40px;
   height: 40px;
@@ -108,28 +116,23 @@ export default {
   font-size: 25px;
   line-height: 40px;
 }
-.header .info > div:nth-child(2) {
+.info > div:nth-child(2) {
   padding: 0 20px;
   color: #313131;
   font-size: 16px;
 }
-.header .info > div:nth-child(3) {
+.info > div:nth-child(3) {
   width: 120px;
   color: #313131;
   font-size: 16px;
   cursor: pointer;
   user-select: none;
 }
-.header .info > div:nth-child(3):hover {
+.info > div:nth-child(3):hover {
   color: #ff0000;
 }
-.content {
-  padding: 20px;
-  margin: auto;
-  margin-top: 50px;
-  width: 400px;
-  height: auto;
-  background: #fff;
-  border-radius: 10px;
+.el-menu {
+  padding-left: 20px;
+  user-select: none;
 }
 </style>
