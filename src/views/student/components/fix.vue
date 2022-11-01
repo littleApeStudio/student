@@ -6,10 +6,10 @@
           <el-input disabled v-model="form.name"></el-input>
         </el-form-item>
         <el-form-item label="班级">
-          <el-input disabled v-model="form.name"></el-input>
+          <el-input disabled v-model="form.class"></el-input>
         </el-form-item>
         <el-form-item label="学号">
-          <el-input disabled v-model="form.name"></el-input>
+          <el-input disabled v-model="form.schoolID"></el-input>
         </el-form-item>
         <el-form-item label="年龄">
           <el-input v-model="form.age"></el-input>
@@ -29,6 +29,7 @@
   </div>
 </template>
 <script>
+import { fix } from "@/api/student"
 export default {
   name: "StudentFix",
 
@@ -38,9 +39,49 @@ export default {
     };
   },
 
-  mounted() {},
+  created() {
+    this.form = JSON.parse(sessionStorage.getItem("s_token"))
+  },
 
-  methods: {},
+  mounted() { },
+
+  methods: {
+    save() {
+      var form = this.form
+      if (form.age.length < 1 || form.sex.length < 1 || form.password.length < 1) {
+        this.$message({
+          message: "前检查是否已填写",
+          type: "warning"
+        })
+      } else {
+        this.$showLoading("修改中...");
+        var data = {
+          age: form.age,
+          sex: form.sex,
+          password: form.password,
+          a_id: JSON.parse(sessionStorage.getItem("s_token")).a_id,
+          s_id: JSON.parse(sessionStorage.getItem("s_token")).s_id,
+        }
+        fix(data).then((res) => {
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "修改成功",
+              type: "success",
+            });
+            this.$emit('update:nowPage','index')
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        }).catch((err) => {
+          this.$hideLoading();
+        })
+      }
+    }
+  },
 };
 </script>
 <style scoped>

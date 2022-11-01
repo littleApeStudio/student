@@ -24,3 +24,11 @@ export function tlogin(data) {
     data: data
   })
 }
+
+// 学生登录
+export function slogin(data) {
+  return request({
+    url: '/stuManage/api/student/login.php',
+    data: data
+  })
+}

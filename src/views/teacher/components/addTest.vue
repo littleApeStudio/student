@@ -43,7 +43,7 @@
         <el-form-item label="试题" :label-width="formLabelWidth">
           <el-select v-model="form.name" placeholder="选择试题">
             <el-option v-if="shitis.length == 0" label="暂无试题，请联系管理员或去添加" value=""></el-option>
-            <el-option v-else v-for="(item, index) in shitis" :key="index" :label="item.name" :value="item.name">
+            <el-option v-else v-for="(item, index) in shitis" :key="index" :label="item.name" :value="item">
             </el-option>
           </el-select>
         </el-form-item>
@@ -66,7 +66,7 @@
 </template>
 
 <script>
-import { addTest,getTest, getShiti } from "@/api/teacher";
+import { addTest, getTest, getShiti } from "@/api/teacher";
 export default {
   data() {
     return {
@@ -100,7 +100,8 @@ export default {
       } else {
         this.$showLoading("添加中...");
         var data = {
-          name: form.name,
+          name: form.name.name,
+          st_id: form.name.st_id,
           stime: form.starttime,
           etime: form.endtime,
           a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
@@ -109,6 +110,7 @@ export default {
         };
         addTest(data)
           .then((res) => {
+            this.dialogFormVisible = false;
             this.$hideLoading();
             if (res.code == 200) {
               this.$message({
@@ -119,7 +121,7 @@ export default {
                 name: "",
                 class: "",
               };
-              this.getKemu();
+              this.getTest();
               this.dialogFormVisible = false;
             } else {
               this.$message({

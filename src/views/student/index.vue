@@ -5,15 +5,15 @@
       </el-page-header>
       <div class="info">
         <div><span class="iconfont icon-touxiang"></span></div>
-        <div>你好，张三</div>
+        <div>你好，{{userInfo.name}}</div>
         <div @click="fixed">
           <span class="iconfont icon-xiugai"></span> 修改信息
         </div>
-        <div><span class="iconfont icon-tuichu"></span> 退出登录</div>
+        <div @click="exit"><span class="iconfont icon-tuichu"></span> 退出登录</div>
       </div>
     </div>
     <div class="contentBox">
-      <component :is="nowPage" :nowPage.sync="nowPage" :nav.sync="nav"></component>
+      <component :is="nowPage" :nowPage.sync="nowPage" :nav.sync="nav" :testid.sync="testid"></component>
     </div>
   </div>
 </template>
@@ -36,6 +36,8 @@ export default {
     return {
       nav: "",
       nowPage: "index",
+      userInfo: {},
+      testid: ""
     };
   },
 
@@ -47,6 +49,8 @@ export default {
         type: "warning"
       })
       this.$router.push('/login')
+    } else {
+      this.userInfo = JSON.parse(sessionStorage.getItem("s_token"))
     }
   },
 
@@ -61,6 +65,9 @@ export default {
       this.nowPage = "fix";
       this.nav = "修改信息"
     },
+    exit() {
+      this.$router.push('/login')
+    }
   },
 };
 </script>

@@ -1,7 +1,7 @@
 <template>
   <div class="admin">
     <div class="left_menu">
-      <el-menu class="el-menu-vertical-demo" default-active='{"path":"index","name":"首页"}' :collapse="isCollapse"
+      <el-menu class="el-menu-vertical-demo" default-active='{"path":"teacher","name":"教师管理"}' :collapse="isCollapse"
         @select="selected">
         <div class="logo">
           <div><img src="@/assets/logo.png" /></div>

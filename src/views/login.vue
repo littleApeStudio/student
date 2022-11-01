@@ -61,7 +61,7 @@
   </div>
 </template>
 <script>
-import { alogin, tlogin } from "@/api/login";
+import { alogin, tlogin, slogin } from "@/api/login";
 export default {
   name: "StudentIndex",
 
@@ -112,8 +112,31 @@ export default {
     },
     // 学生登录
     slogin() {
-      sessionStorage.setItem("s_token", "res.data.a_id");
-      this.$router.push("/");
+      this.$showLoading("登陆中...");
+      slogin(this.userData)
+        .then((res) => {
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "登录成功",
+              type: "success",
+            });
+            this.userData = {
+              username: "",
+              pass: "",
+            };
+            sessionStorage.setItem("s_token", JSON.stringify(res.data));
+            this.$router.push("/");
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$hideLoading();
+        });
     },
     // 教师登录
     tlogin() {
