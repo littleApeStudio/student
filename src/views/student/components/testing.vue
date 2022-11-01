@@ -20,7 +20,7 @@
   </div>
 </template>
 <script>
-import { getTesting } from "@/api/student";
+import { getTesting, addGrade } from "@/api/student";
 export default {
   name: "StudentTesting",
   props: ["testid"],
@@ -118,9 +118,35 @@ export default {
         type: "warning",
       })
         .then(() => {
-          this.$message({
-            message: "你得了" + grade + "分"
-          })
+          this.$showLoading("正在交卷...");
+          var data = {
+            st_id: this.testid,
+            a_id: JSON.parse(sessionStorage.getItem("s_token")).a_id,
+            s_id: JSON.parse(sessionStorage.getItem("s_token")).s_id,
+            class: JSON.parse(sessionStorage.getItem("s_token")).class,
+            grade: grade
+          };
+          addGrade(data)
+            .then((res) => {
+              this.dialogFormVisible = false;
+              this.$hideLoading();
+              if (res.code == 200) {
+                this.$message({
+                  message: "交卷成功",
+                  type: "success",
+                });
+                this.$emit('update:testid','')
+                this.$emit('update:nowPage','index')
+              } else {
+                this.$message({
+                  message: res.msg,
+                  type: "error",
+                });
+              }
+            })
+            .catch((err) => {
+              this.$hideLoading();
+            });
         })
         .catch(() => { });
     },

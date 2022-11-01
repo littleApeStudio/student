@@ -15,10 +15,24 @@ export function getTest(data) {
         data: data
     })
 }
+// 是否考过试
+export function tested(data) {
+    return request({
+        url: '/stuManage/api/student/tested.php',
+        data: data
+    })
+}
 // 查找试卷
 export function getTesting(data) {
     return request({
         url: '/stuManage/api/student/getTesting.php',
+        data: data
+    })
+}
+// 提交成绩
+export function addGrade(data) {
+    return request({
+        url: '/stuManage/api/student/addGrade.php',
         data: data
     })
 }

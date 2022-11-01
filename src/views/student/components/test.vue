@@ -35,7 +35,7 @@
 </template>
 
 <script>
-import { getTest } from "@/api/student";
+import { getTest, tested } from "@/api/student";
 export default {
   data() {
     return {
@@ -50,9 +50,33 @@ export default {
   methods: {
     // 开始考试
     start(index, row) {
-      this.$emit('update:testid', row.st_id);
-      this.$emit('update:nowPage', "testing");
-      this.$emit("update:nav", "开始答题");
+      var data = {
+        st_id: row.st_id,
+        a_id: JSON.parse(sessionStorage.getItem("s_token")).a_id,
+        s_id: JSON.parse(sessionStorage.getItem("s_token")).s_id,
+      };
+      tested(data)
+        .then((res) => {
+          this.dialogFormVisible = false;
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "开始考试",
+              type: "success",
+            });
+            this.$emit('update:testid', row.st_id);
+            this.$emit('update:nowPage', "testing");
+            this.$emit("update:nav", "开始答题");
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$hideLoading();
+        });
     },
     // 查找班级信息
     getTest() {
