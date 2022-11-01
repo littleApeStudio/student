@@ -12,7 +12,7 @@
         <div><span class="iconfont icon-tuichu"></span> 退出登录</div>
       </div>
     </div>
-    <div>
+    <div class="contentBox">
       <component
         :is="nowPage"
         :nowPage.sync="nowPage"
@@ -26,6 +26,7 @@ import index from "./components/index.vue";
 import fix from "./components/fix.vue";
 import test from "./components/test.vue";
 import grade from "./components/grade.vue";
+import testing from "./components/testing.vue";
 export default {
   name: "StudentLogin",
   components: {
@@ -33,6 +34,7 @@ export default {
     fix,
     test,
     grade,
+    testing,
   },
   data() {
     return {
@@ -85,6 +87,9 @@ export default {
 }
 
 .header {
+  position: fixed;
+  top: 0;
+  left: 0;
   padding: 0 20px;
   width: calc(100% - 40px);
   height: 56px;
@@ -139,13 +144,9 @@ export default {
 .header .info > div:nth-child(4):hover {
   color: #ff0000;
 }
-.content {
-  padding: 20px;
-  margin: auto;
-  margin-top: 50px;
-  width: 400px;
-  height: auto;
-  background: #fff;
-  border-radius: 10px;
+.contentBox{
+  padding-top: 56px;
+  width: 100%;
+  height: 100%;
 }
 </style>
