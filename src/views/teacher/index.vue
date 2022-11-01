@@ -9,7 +9,6 @@
       text-color="#313131"
       active-text-color="#3a9efd"
     >
-      <el-menu-item index="index">首页</el-menu-item>
       <el-menu-item index="searchStudent">查询学生信息</el-menu-item>
       <el-menu-item index="addShiti">添加试题</el-menu-item>
       <el-menu-item index="addTest">添加考试</el-menu-item>
@@ -29,7 +28,6 @@
   </div>
 </template>
 <script>
-import index from "./components/index.vue";
 import addShiti from "./components/addShiti.vue";
 import addTest from "./components/addTest.vue";
 import searchGrade from "./components/searchGrade.vue";
@@ -37,7 +35,6 @@ import searchStudent from "./components/searchStudent.vue";
 export default {
   name: "Student",
   components: {
-    index, //首页
     addShiti, //添加试题
     addTest, //添加考试
     searchGrade, //查询成绩,
@@ -45,7 +42,7 @@ export default {
   },
   data() {
     return {
-      nowPage: "index",
+      nowPage: "searchStudent",
     };
   },
 

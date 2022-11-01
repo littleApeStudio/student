@@ -22,13 +22,9 @@
         </el-table-column>
         <el-table-column align="center" label="班级" prop="class">
         </el-table-column>
-        <el-table-column align="center" label="科目一" prop="kemu">
+        <el-table-column align="center" label="科目" prop="kemu">
         </el-table-column>
-        <el-table-column align="center" label="科目二" prop="kemu">
-        </el-table-column>
-        <el-table-column align="center" label="科目三" prop="kemu">
-        </el-table-column>
-        <el-table-column align="center" label="总分" prop="grades">
+        <el-table-column align="center" label="分数" prop="grades">
         </el-table-column>
       </el-table>
       <!-- 表格 -->
