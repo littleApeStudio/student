@@ -5,86 +5,54 @@
         <el-button type="primary" @click="addKemu">添加考试</el-button>
       </div>
       <div>
-        <el-input
-          class="search"
-          v-model="search"
-          placeholder="输入试题名搜索"
-        />
+        <el-input class="search" v-model="search" placeholder="输入试题名搜索" />
       </div>
     </div>
     <div class="my_table">
       <!-- 空表 -->
-      <el-empty
-        v-if="tableData.length == 0"
-        description="暂无考试信息"
-      ></el-empty>
+      <el-empty v-if="tableData.length == 0" description="暂无考试信息"></el-empty>
       <!-- 表格 -->
-      <el-table
-        v-else
-        class="el-table"
-        :data="
-          tableData.filter(
-            (data) =>
-              !search || data.name.toLowerCase().includes(search.toLowerCase())
-          )
-        "
-      >
+      <el-table v-else class="el-table" :data="
+        tableData.filter(
+          (data) =>
+            !search || data.name.toLowerCase().includes(search.toLowerCase())
+        )
+      ">
         <el-table-column align="center" label="序号" type="index">
         </el-table-column>
-        <el-table-column align="center" label="科目名称" prop="kemu">
+        <el-table-column align="center" label="科目名称" prop="name">
         </el-table-column>
         <el-table-column align="center" label="班级" prop="class">
         </el-table-column>
-        <el-table-column align="center" label="开始日期" prop="starttime">
+        <el-table-column align="center" label="开始日期" prop="stime">
         </el-table-column>
-        <el-table-column align="center" label="结束日期" prop="endtime">
+        <el-table-column align="center" label="结束日期" prop="etime">
         </el-table-column>
         <el-table-column align="center" label="操作">
           <template slot-scope="scope">
-            <el-button
-              size="mini"
-              type="danger"
-              @click="handleDelete(scope.$index, scope.row)"
-              >删除</el-button
-            >
+            <el-button size="mini" type="danger" @click="handleDelete(scope.$index, scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>
       <!-- 表格 -->
     </div>
     <!-- 添加表单弹窗 -->
-    <el-dialog
-      title="添加考试"
-      :visible.sync="dialogFormVisible"
-      :modal-append-to-body="false"
-      :append-to-body="false"
-      width="400px"
-      :center="true"
-    >
+    <el-dialog title="添加考试" :visible.sync="dialogFormVisible" :modal-append-to-body="false" :append-to-body="false"
+      width="400px" :center="true">
       <el-form :model="form">
         <el-form-item label="试题" :label-width="formLabelWidth">
-          <el-select v-model="form.shitis" placeholder="选择试题">
-            <el-option
-              v-if="shitis.length == 0"
-              label="暂无试题，请联系管理员或去添加"
-              value=""
-            ></el-option>
-            <el-option
-              v-else
-              v-for="(item, index) in shitis"
-              :key="index"
-              :label="item.name"
-              :value="item.name"
-            >
+          <el-select v-model="form.name" placeholder="选择试题">
+            <el-option v-if="shitis.length == 0" label="暂无试题，请联系管理员或去添加" value=""></el-option>
+            <el-option v-else v-for="(item, index) in shitis" :key="index" :label="item.name" :value="item.name">
             </el-option>
           </el-select>
         </el-form-item>
         <el-form-item label="开始日期" :label-width="formLabelWidth">
-          <el-date-picker v-model="form.starttime" type="date" placeholder="选择开始日期">
+          <el-date-picker v-model="form.starttime" type="date" placeholder="选择开始日期" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item>
         <el-form-item label="结束日期" :label-width="formLabelWidth">
-          <el-date-picker v-model="form.endtime" type="date" placeholder="选择结束日期">
+          <el-date-picker v-model="form.endtime" type="date" placeholder="选择结束日期" value-format="yyyy-MM-dd">
           </el-date-picker>
         </el-form-item>
       </el-form>
@@ -98,20 +66,13 @@
 </template>
 
 <script>
-import { addKemu, getKemu, delateKemu, getClass } from "@/api/admin";
+import { addTest,getTest, getShiti } from "@/api/teacher";
 export default {
   data() {
     return {
       shitis: [],
       // 表格数据
-      tableData: [
-        {
-          kemu: "科目名称",
-          class: "1",
-          starttime: "2022-10-05",
-          endtime: "2022-10-06",
-        },
-      ],
+      tableData: [],
       search: "",
       // 添加弹窗显隐
       dialogFormVisible: false,
@@ -120,8 +81,8 @@ export default {
     };
   },
   created() {
-    // this.getKemu();
-    // this.getClass();
+    this.getShiti();
+    this.getTest();
   },
   methods: {
     // 添加
@@ -131,7 +92,7 @@ export default {
     // 确定
     sure() {
       var form = this.form;
-      if (form.name.length < 1 || form.class.length < 1) {
+      if (form.name.length < 1 || form.starttime.length < 1 || form.endtime.length < 1) {
         this.$message({
           message: "表单格式错误",
           type: "warning",
@@ -140,10 +101,13 @@ export default {
         this.$showLoading("添加中...");
         var data = {
           name: form.name,
-          class: form.class,
-          a_id: sessionStorage.getItem("a_token"),
+          stime: form.starttime,
+          etime: form.endtime,
+          a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+          t_id: JSON.parse(sessionStorage.getItem("t_token")).t_id,
+          class: JSON.parse(sessionStorage.getItem("t_token")).class,
         };
-        addKemu(data)
+        addTest(data)
           .then((res) => {
             this.$hideLoading();
             if (res.code == 200) {
@@ -214,24 +178,28 @@ export default {
           });
         });
     },
-    // 查找科目信息
-    getKemu() {
+    // 查找试题信息
+    getShiti() {
       var data = {
-        a_id: sessionStorage.getItem("a_token"),
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+        kemu: JSON.parse(sessionStorage.getItem("t_token")).course,
+        class: JSON.parse(sessionStorage.getItem("t_token")).class,
       };
-      getKemu(data).then((res) => {
+      getShiti(data).then((res) => {
         this.$hideLoading();
-        this.tableData = res.data;
+        this.shitis = res.data;
       });
     },
-    // 查找班级信息
-    getClass() {
+    // 查找考试信息
+    getTest() {
       var data = {
-        a_id: sessionStorage.getItem("a_token"),
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+        t_id: JSON.parse(sessionStorage.getItem("t_token")).t_id,
+        class: JSON.parse(sessionStorage.getItem("t_token")).class,
       };
-      getClass(data).then((res) => {
+      getTest(data).then((res) => {
         this.$hideLoading();
-        this.classs = res.data;
+        this.tableData = res.data;
       });
     },
   },
@@ -248,20 +216,20 @@ export default {
   display: flex;
 }
 
-.header > div:nth-child(1) {
+.header>div:nth-child(1) {
   margin-left: 20px;
   margin-top: 8px;
   width: auto;
   height: 40px;
 }
 
-.header > div:nth-child(2) {
+.header>div:nth-child(2) {
   margin-top: 8px;
   width: auto;
   height: 40px;
 }
 
-.header > div:nth-child(2) .search {
+.header>div:nth-child(2) .search {
   margin-left: 20px;
   width: 200px;
   height: 100%;

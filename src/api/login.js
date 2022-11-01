@@ -16,3 +16,11 @@ export function alogin(data) {
     data: data
   })
 }
+
+// 教师登录
+export function tlogin(data) {
+  return request({
+    url: '/stuManage/api/teacher/login.php',
+    data: data
+  })
+}

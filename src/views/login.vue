@@ -7,106 +7,48 @@
           <el-tabs v-model="activeName" @tab-click="handleClick">
             <el-tab-pane label="学生登录" name="student">
               <div class="input">
-                <el-form
-                  label-position="right"
-                  :model="userData"
-                  status-icon
-                  ref="userData"
-                  label-width="100px"
-                  class="demo-ruleForm"
-                >
+                <el-form label-position="right" :model="userData" status-icon ref="userData" label-width="100px"
+                  class="demo-ruleForm">
                   <el-form-item label-width="70px" label="学号" prop="username">
-                    <el-input
-                      v-model.number="userData.username"
-                      placeholder="请输入学号"
-                    ></el-input>
+                    <el-input v-model.number="userData.username" placeholder="请输入学号"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px" label="密码" prop="pass">
-                    <el-input
-                      type="password"
-                      v-model="userData.pass"
-                      autocomplete="off"
-                      placeholder="请输入密码"
-                    ></el-input>
+                    <el-input type="password" v-model="userData.pass" autocomplete="off" placeholder="请输入密码"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px">
-                    <el-button
-                      style="width: 100%"
-                      type="primary"
-                      @click="submitForm('userData')"
-                      >登录</el-button
-                    >
+                    <el-button style="width: 100%" type="primary" @click="submitForm('userData')">登录</el-button>
                   </el-form-item>
                 </el-form>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="教师登录" name="teacher"
-              ><div class="input">
-                <el-form
-                  label-position="right"
-                  :model="userData"
-                  status-icon
-                  ref="userData"
-                  label-width="100px"
-                  class="demo-ruleForm"
-                >
-                  <el-form-item
-                    label-width="70px"
-                    label="用户名"
-                    prop="username"
-                  >
-                    <el-input
-                      v-model.number="userData.username"
-                      placeholder="请输入用户名"
-                    ></el-input>
+            <el-tab-pane label="教师登录" name="teacher">
+              <div class="input">
+                <el-form label-position="right" :model="userData" status-icon ref="userData" label-width="100px"
+                  class="demo-ruleForm">
+                  <el-form-item label-width="70px" label="用户名" prop="username">
+                    <el-input v-model.number="userData.username" placeholder="请输入用户名"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px" label="密码" prop="pass">
-                    <el-input
-                      type="password"
-                      v-model="userData.pass"
-                      autocomplete="off"
-                      placeholder="请输入密码"
-                    ></el-input>
+                    <el-input type="password" v-model="userData.pass" autocomplete="off" placeholder="请输入密码"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px">
-                    <el-button
-                      style="width: 100%"
-                      type="primary"
-                      @click="submitForm('userData')"
-                      >登录</el-button
-                    >
+                    <el-button style="width: 100%" type="primary" @click="submitForm('userData')">登录</el-button>
                   </el-form-item>
                 </el-form>
               </div>
             </el-tab-pane>
-            <el-tab-pane label="管理员登录" name="admin"
-              ><div class="input">
-                <el-form
-                  label-position="right"
-                  :model="userData"
-                  status-icon
-                  ref="userData"
-                  label-width="100px"
-                  class="demo-ruleForm"
-                >
+            <el-tab-pane label="管理员登录" name="admin">
+              <div class="input">
+                <el-form label-position="right" :model="userData" status-icon ref="userData" label-width="100px"
+                  class="demo-ruleForm">
                   <el-form-item label-width="70px" label="账号" prop="username">
-                    <el-input
-                      v-model.number="userData.username"
-                      placeholder="请输入账号"
-                    ></el-input>
+                    <el-input v-model.number="userData.username" placeholder="请输入账号"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px" label="密码" prop="pass">
-                    <el-input
-                      type="password"
-                      v-model="userData.pass"
-                      autocomplete="off"
-                      placeholder="请输入密码"
-                    ></el-input>
+                    <el-input type="password" v-model="userData.pass" autocomplete="off" placeholder="请输入密码"></el-input>
                   </el-form-item>
                   <el-form-item label-width="70px">
-                    <el-button type="primary" @click="submitForm('userData')"
-                      >立即登录</el-button
-                    >
+                    <el-button type="primary" @click="submitForm('userData')">立即登录</el-button>
                     <el-button @click="register">注册</el-button>
                   </el-form-item>
                 </el-form>
@@ -119,7 +61,7 @@
   </div>
 </template>
 <script>
-import { alogin } from "@/api/login";
+import { alogin, tlogin } from "@/api/login";
 export default {
   name: "StudentIndex",
 
@@ -133,13 +75,13 @@ export default {
     };
   },
 
-  created(){
+  created() {
     sessionStorage.removeItem("a_token")
     sessionStorage.removeItem("s_token")
     sessionStorage.removeItem("t_token")
   },
 
-  mounted() {},
+  mounted() { },
 
   methods: {
     // 导航点击
@@ -175,8 +117,31 @@ export default {
     },
     // 教师登录
     tlogin() {
-      sessionStorage.setItem("t_token", "res.data.a_id");
-      this.$router.push("/");
+      this.$showLoading("登陆中...");
+      tlogin(this.userData)
+        .then((res) => {
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "登录成功",
+              type: "success",
+            });
+            this.userData = {
+              username: "",
+              pass: "",
+            };
+            sessionStorage.setItem("t_token", JSON.stringify(res.data));
+            this.$router.push("/teacher");
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$hideLoading();
+        });
     },
     // 管理员登录
     alogin() {
@@ -221,7 +186,8 @@ export default {
   z-index: 0;
   width: 100%;
   height: 100%;
-  background-color: #a8edea; /* 不支持线性的时候显示 */
+  background-color: #a8edea;
+  /* 不支持线性的时候显示 */
   background-image: linear-gradient(to bottom right, #a8edea, #fed6e3);
 }
 

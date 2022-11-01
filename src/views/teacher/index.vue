@@ -15,8 +15,8 @@
       <el-menu-item index="searchGrade">查询成绩</el-menu-item>
       <div class="info">
         <div><span class="iconfont icon-touxiang"></span></div>
-        <div>你好，张三</div>
-        <div><span class="iconfont icon-tuichu"></span> 退出登录</div>
+        <div>你好，{{userInfo.name}}</div>
+        <div @click="exit"><span class="iconfont icon-tuichu"></span> 退出登录</div>
       </div>
     </el-menu>
     <div>
@@ -42,8 +42,22 @@ export default {
   },
   data() {
     return {
+      userInfo: {},
       nowPage: "searchStudent",
     };
+  },
+
+  created(){
+    var t = sessionStorage.getItem("t_token")
+    if (t == null){
+      this.$message({
+        message: "你还没有登陆哦！",
+        type: "warning"
+      })
+      this.$router.push('/login')
+    } else {
+      this.userInfo = JSON.parse(t)
+    }
   },
 
   mounted() {},
@@ -52,6 +66,9 @@ export default {
     handleSelect(key, keyPath) {
       this.nowPage = key
     },
+    exit(){
+      this.$router.push('/login')
+    }
   },
 };
 </script>

@@ -45,14 +45,7 @@ export default {
   data() {
     return {
       // 表格数据
-      tableData: [
-        {
-          name: "王小虎",
-          class: "123123",
-          kemu: "信息与工程学院",
-          grades: "52",
-        },
-      ],
+      tableData: [],
       search: "",
       formLabelWidth: "60px",
     };

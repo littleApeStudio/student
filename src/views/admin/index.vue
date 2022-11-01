@@ -9,10 +9,6 @@
             学生管理系统
           </div>
         </div>
-        <el-menu-item index='{"path":"index","name":"首页"}'>
-          <i class="el-icon-s-home"></i>
-          <span slot="title">首页</span>
-        </el-menu-item>
         <el-submenu index="用户管理">
           <template slot="title">
             <i class="el-icon-user-solid"></i>
@@ -71,7 +67,6 @@
   </div>
 </template>
 <script>
-import index from "./components/index.vue"; //首页
 import teacher from "./components/teacher.vue"; //教师管理
 import student from "./components/student.vue"; //学生管理
 import kemu from "./components/kemu.vue"; //科目管理
@@ -82,7 +77,6 @@ import notice from "./components/notice.vue"; //通知管理
 import grade from "./components/grade.vue"; //成绩统计
 export default {
   components: {
-    index, //首页
     teacher, //教师管理
     student, //学生管理
     kemu, //科目管理
@@ -97,7 +91,7 @@ export default {
       // 导航栏收缩
       isCollapse: false,
       // 当前页面
-      nowPage: "index",
+      nowPage: "teacher",
       // 全部页面
       allPages: [
         "index",
@@ -121,7 +115,7 @@ export default {
         message: "你还没有登录哦",
         type: "warning",
       });
-      // this.$router.push("/login");
+      this.$router.push("/login");
     }
   },
   methods: {

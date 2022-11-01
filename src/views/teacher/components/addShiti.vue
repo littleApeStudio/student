@@ -23,7 +23,6 @@
           <template slot-scope="scope">
             <el-button @click="handleClick(scope.row)" type="text" size="small">添加题目</el-button>
             <el-button @click="look(scope.row)" type="text" size="small">查看题目</el-button>
-            <el-button @click="handleDelete(scope.row)" type="text" size="small">删除试题</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -96,14 +95,11 @@
 
 <script>
 import {
-  getKemu,
-  getClass,
   addShiti,
   getShiti,
-  delateShiti,
   addXuanze,
   getXuanze
-} from "@/api/admin";
+} from "@/api/teacher";
 export default {
   data() {
     return {
@@ -125,8 +121,6 @@ export default {
   },
   created() {
     this.getShiti()
-    this.getClass();
-    this.getKemu();
   },
   methods: {
     // 添加
@@ -137,9 +131,7 @@ export default {
     sure() {
       var form = this.form;
       if (
-        form.name.length < 2 ||
-        form.kemu.length < 1 ||
-        form.class.length < 1
+        form.name.length < 1
       ) {
         this.$message({
           message: "表单格式错误",
@@ -149,9 +141,10 @@ export default {
         this.$showLoading("添加中...");
         var data = {
           name: form.name,
-          kemu: form.kemu,
-          class: form.class,
-          a_id: sessionStorage.getItem("a_token"),
+          kemu: JSON.parse(sessionStorage.getItem("t_token")).course,
+          class: JSON.parse(sessionStorage.getItem("t_token")).class,
+          a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+          t_id: JSON.parse(sessionStorage.getItem("t_token")).t_id
         };
         addShiti(data)
           .then((res) => {
@@ -186,77 +179,16 @@ export default {
     cancle() {
       this.dialogFormVisible = false;
     },
-    // 删除
-    handleDelete(row) {
-      this.$confirm("此操作将永久删除该教师, 是否继续?", "提示", {
-        confirmButtonText: "确定",
-        cancelButtonText: "取消",
-        type: "warning",
-      })
-        .then(() => {
-          this.$showLoading("删除中...");
-          var data = {
-            st_id: row.st_id,
-            tiankong: row.tiankong,
-            xuanze: row.xuanze,
-            a_id: sessionStorage.getItem("a_token")
-          };
-          delateShiti(data)
-            .then((res) => {
-              this.$hideLoading();
-              if (res.code == 200) {
-                this.$message({
-                  message: "删除成功",
-                  type: "success",
-                });
-                this.getShiti();
-                this.dialogFormVisible = false;
-              } else {
-                this.$message({
-                  message: res.msg,
-                  type: "error",
-                });
-              }
-            })
-            .catch((res) => {
-              this.$hideLoading();
-            });
-        })
-        .catch(() => {
-          this.$message({
-            type: "info",
-            message: "已取消删除",
-          });
-        });
-    },
     // 查找试题信息
     getShiti() {
       var data = {
-        a_id: sessionStorage.getItem("a_token"),
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+        kemu: JSON.parse(sessionStorage.getItem("t_token")).course,
+        class: JSON.parse(sessionStorage.getItem("t_token")).class,
       };
       getShiti(data).then((res) => {
         this.$hideLoading();
         this.tableData = res.data;
-      });
-    },
-    // 查找班级信息
-    getClass() {
-      var data = {
-        a_id: sessionStorage.getItem("a_token"),
-      };
-      getClass(data).then((res) => {
-        this.$hideLoading();
-        this.classs = res.data;
-      });
-    },
-    // 查找科目信息
-    getKemu() {
-      var data = {
-        a_id: sessionStorage.getItem("a_token"),
-      };
-      getKemu(data).then((res) => {
-        this.$hideLoading();
-        this.kemus = res.data;
       });
     },
     // 添加试题内容
@@ -287,7 +219,8 @@ export default {
           xtrue: form.xtrue,
           grade: form.grade,
           xuanze: this.xuanze,
-          a_id: sessionStorage.getItem("a_token"),
+          a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+          t_id: JSON.parse(sessionStorage.getItem("t_token")).t_id,
         };
         addXuanze(data)
           .then((res) => {
@@ -319,7 +252,7 @@ export default {
       this.looktimu = true
       this.$showLoading("查询中...");
       var data = {
-        a_id: sessionStorage.getItem("a_token"),
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
         xuanze: e.xuanze
       }
       getXuanze(data)

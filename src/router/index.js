@@ -21,15 +21,9 @@ const routes = [
   /*  ------ 学生 ------  */
   // 首页
   {
-    path: '/student',
+    path: '/',
     name: 'student',
     component:() => import('@/views/student/index.vue')
-  },
-  /*  ------- 首页  ---- */
-  {
-    path: '/',
-    name: 'index',
-    component:() => import('@/views/index.vue')
   },
   /*  ------- 登录  ---- */
   {

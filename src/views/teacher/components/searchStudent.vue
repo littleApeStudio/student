@@ -34,29 +34,24 @@
 </template>
 
 <script>
-import { addStudent, getStudent, delateStudent, getClass } from "@/api/admin";
+import { getStudent } from "@/api/teacher";
 export default {
   data() {
     return {
       // 表格数据
-      tableData: [{
-        name: "张三",
-        age: "20",
-        sex: "男",
-        class: "1",
-        schoolID: "123",
-      }],
+      tableData: [],
       search: "",
     };
   },
   created() {
-    // this.getStudent();
+    this.getStudent();
   },
   methods: {
     // 查找学生信息
     getStudent() {
       var data = {
-        a_id: sessionStorage.getItem("a_token"),
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+        class: JSON.parse(sessionStorage.getItem("t_token")).class
       };
       getStudent(data).then((res) => {
         this.tableData = res.data;
