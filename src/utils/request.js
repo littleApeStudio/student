@@ -1,6 +1,6 @@
 import axios from 'axios'
 import {Message} from "element-ui";
-const ConfigBaseURL = 'http://localhost/' //默认路径，这里也可以使用env来判断环境
+const ConfigBaseURL = 'http://localhost:80/' //默认路径，这里也可以使用env来判断环境
 //使用create方法创建axios实例
 export const request = axios.create({
     timeout: 7000, // 请求超时时间
