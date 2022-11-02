@@ -57,3 +57,11 @@ export function getTest(data) {
     data: data
   })
 }
+
+// 查询成绩
+export function getGrade(data) {
+  return request({
+    url: '/stuManage/api/teacher/getGrade.php',
+    data: data
+  })
+}

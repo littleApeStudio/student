@@ -186,3 +186,11 @@ export function getXuanze(data) {
     data: data
   })
 }
+
+// 查询成绩
+export function getGrade(data) {
+  return request({
+    url: '/stuManage/api/admin/getGrade.php',
+    data: data
+  })
+}

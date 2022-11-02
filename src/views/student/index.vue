@@ -5,7 +5,7 @@
       </el-page-header>
       <div class="info">
         <div><span class="iconfont icon-touxiang"></span></div>
-        <div>你好，{{userInfo.name}}</div>
+        <div>你好，{{ userInfo.name }}</div>
         <div @click="fixed">
           <span class="iconfont icon-xiugai"></span> 修改信息
         </div>
@@ -23,6 +23,7 @@ import fix from "./components/fix.vue";
 import test from "./components/test.vue";
 import grade from "./components/grade.vue";
 import testing from "./components/testing.vue";
+import notice from "./components/notice.vue";
 export default {
   name: "StudentLogin",
   components: {
@@ -31,13 +32,14 @@ export default {
     test,
     grade,
     testing,
+    notice,
   },
   data() {
     return {
       nav: "",
       nowPage: "index",
       userInfo: {},
-      testid: ""
+      testid: "",
     };
   },
 
@@ -67,7 +69,7 @@ export default {
     },
     exit() {
       this.$router.push('/login')
-    }
+    },
   },
 };
 </script>

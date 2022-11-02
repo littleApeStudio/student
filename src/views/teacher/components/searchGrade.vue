@@ -30,7 +30,7 @@
         </el-table-column>
         <el-table-column align="center" label="科目" prop="kemu">
         </el-table-column>
-        <el-table-column align="center" label="分数" prop="grades">
+        <el-table-column align="center" label="分数" prop="grade">
         </el-table-column>
       </el-table>
       <!-- 表格 -->
@@ -41,6 +41,7 @@
 <script>
 import FileSaver from "file-saver";
 import { utils, write } from "xlsx";
+import { getGrade } from '@/api/teacher';
 export default {
   data() {
     return {
@@ -50,7 +51,38 @@ export default {
       formLabelWidth: "60px",
     };
   },
+  created() {
+    this.getGrade()
+  },
   methods: {
+    getGrade() {
+      this.$showLoading("查询中...");
+      var data = {
+        a_id: JSON.parse(sessionStorage.getItem("t_token")).a_id,
+        class: JSON.parse(sessionStorage.getItem("t_token")).class,
+        kemu: JSON.parse(sessionStorage.getItem("t_token")).course,
+      };
+      getGrade(data)
+        .then((res) => {
+          this.dialogFormVisible = false;
+          this.$hideLoading();
+          if (res.code == 200) {
+            this.$message({
+              message: "查询成功",
+              type: "success",
+            });
+            this.tableData = res.data;
+          } else {
+            this.$message({
+              message: res.msg,
+              type: "error",
+            });
+          }
+        })
+        .catch((err) => {
+          this.$hideLoading();
+        });
+    },
     // 导出成绩
     out() {
       //需给表格定义一个id或者类名

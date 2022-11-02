@@ -36,3 +36,17 @@ export function addGrade(data) {
         data: data
     })
 }
+// 查询成绩
+export function getGrade(data) {
+    return request({
+        url: '/stuManage/api/student/getGrade.php',
+        data: data
+    })
+}
+// 获取通知
+export function getnotice(data) {
+    return request({
+        url: '/stuManage/api/student/getnotice.php',
+        data: data
+    })
+}

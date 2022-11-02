@@ -13,6 +13,7 @@
       <el-menu-item index="addShiti">添加试题</el-menu-item>
       <el-menu-item index="addTest">添加考试</el-menu-item>
       <el-menu-item index="searchGrade">查询成绩</el-menu-item>
+      <el-menu-item index="notice">通知</el-menu-item>
       <div class="info">
         <div><span class="iconfont icon-touxiang"></span></div>
         <div>你好，{{userInfo.name}}</div>
@@ -32,6 +33,7 @@ import addShiti from "./components/addShiti.vue";
 import addTest from "./components/addTest.vue";
 import searchGrade from "./components/searchGrade.vue";
 import searchStudent from "./components/searchStudent.vue";
+import notice from "./components/notice.vue";
 export default {
   name: "Student",
   components: {
@@ -39,6 +41,7 @@ export default {
     addTest, //添加考试
     searchGrade, //查询成绩,
     searchStudent, //查询学生信息
+    notice, //通知
   },
   data() {
     return {

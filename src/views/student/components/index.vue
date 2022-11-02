@@ -3,6 +3,7 @@
     <div class="content">
       <div @click="totest">参加考试</div>
       <div @click="tograde">查询成绩</div>
+      <div @click="notice">查看通知</div>
     </div>
   </div>
 </template>
@@ -31,6 +32,11 @@ export default {
     tograde(){
         this.$emit("update:nowPage", "grade");
       this.$emit("update:nav", "查询成绩");
+    },
+    // 查看通知
+    notice(){
+        this.$emit("update:nowPage", "notice");
+      this.$emit("update:nav", "查看通知");
     }
   },
 };
@@ -69,5 +75,8 @@ export default {
 }
 .student .content > div:nth-child(2) {
   background-image: linear-gradient(to right, #5ee7df 0%, #b490ca 100%);
+}
+.student .content > div:nth-child(3) {
+  background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
 }
 </style>
