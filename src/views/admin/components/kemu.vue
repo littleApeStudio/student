@@ -37,7 +37,11 @@
       width="400px" :center="true">
       <el-form :model="form">
         <el-form-item label="科目名称" :label-width="formLabelWidth">
-          <el-input v-model="form.name" autocomplete="off" placeholder="输入科目名称"></el-input>
+          <el-select width="100%" v-model="form.name" placeholder="选择要添加的课程">
+            <el-option v-if="courses.length == 0" label="暂无课程，请前往学院管理添加" value=""></el-option>
+            <el-option v-else v-for="(item, index) in courses" :key="index" :label="item.name" :value="item.name">
+            </el-option>
+          </el-select>
         </el-form-item>
         <el-form-item label="班级" :label-width="formLabelWidth">
           <el-select v-model="form.class" placeholder="选择所在的班级">
@@ -57,11 +61,12 @@
 </template>
 
 <script>
-import { addKemu, getKemu, delateKemu, getClass } from "@/api/admin";
+import { addKemu, getKemu, delateKemu, getCourse, getClass } from "@/api/admin";
 export default {
   data() {
     return {
       classs: [],
+      courses: [],
       // 表格数据
       tableData: [],
       search: "",
@@ -74,6 +79,7 @@ export default {
   created() {
     this.getKemu();
     this.getClass();
+    this.getCourse();
   },
   methods: {
     // 添加
@@ -184,6 +190,16 @@ export default {
       getClass(data).then((res) => {
         this.$hideLoading();
         this.classs = res.data;
+      });
+    },
+    // 查找课程信息
+    getCourse() {
+      var data = {
+        a_id: sessionStorage.getItem("a_token"),
+      };
+      getCourse(data).then((res) => {
+        this.$hideLoading();
+        this.courses = res.data;
       });
     },
   },
